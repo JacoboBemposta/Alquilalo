@@ -2,7 +2,7 @@
 @extends('layouts.menu')
 @section('contenido')
 <div class="row justify-content-center mt-3">
-    <div class="col-7 bg-light p-4 border rounded form-container">
+    <div class="col-7 p-4 border rounded form-container">
         <form action="{{ route('productos.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             {{-- @method('PUT') --}}

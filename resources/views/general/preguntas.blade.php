@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center" >
         <div class="col-8">
-            <section class="faq-section">
+            <section class="form-container">
                 <h1>Preguntas frecuentes</h1>
                 <div class="faq-question">
                     <h4>¿Qué es Alquilalo?</h4>

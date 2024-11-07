@@ -1,7 +1,7 @@
-DELIMITER //
+
 
 CREATE TRIGGER actualizar_valoracion_media
-AFTER INSERT ON valoraciones
+AFTER INSERT ON valoracions
 FOR EACH ROW
 BEGIN
     DECLARE promedio DECIMAL(3,2);
@@ -15,4 +15,3 @@ BEGIN
     WHERE id = NEW.id_producto;
 END
 
-DELIMITER ;

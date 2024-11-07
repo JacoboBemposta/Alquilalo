@@ -16,9 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('id_producto');
             $table->unsignedBigInteger('id_arrendador');
             $table->unsignedBigInteger('id_arrendatario');
-            $table->date('fecha_inicio');
-            $table->date('fecha_fin');
-            $table->decimal('precio_total');
+            $table->date('fecha_inicio')->nullable();
+            $table->date('fecha_fin')->nullable();
+            $table->boolean('is_range')->default(false);
+            $table->decimal('precio_total', 8, 2)->nullable(); 
             $table->timestamps();
 
             $table->foreign('id_producto')->references('id')->on('productos')->onDelete('cascade');

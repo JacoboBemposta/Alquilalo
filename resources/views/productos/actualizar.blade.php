@@ -2,10 +2,10 @@
 @extends('layouts.menu')
 @section('contenido')
 <div class="row justify-content-center mt-3">
-    <div class="col-7 p-4 border rounded text-center form-container">
-        <img src="{{ '/storage/productos/' . $producto->id . '/' . $producto->imagenes[0]->nombre}}" class="img-fluid rounded mx-auto d-block" style="max-width: 100%; height: auto;">
-        <h2 class="mt-3">{{ $producto->nombre }}</h2>
-        <form action="{{ route('productos.edit') }}" method="POST" enctype="multipart/form-data">
+    <div class="col-7 p-4 border rounded form-container">
+        <h2 class="mt-3 text-center">{{ $producto->nombre }}</h2>
+        <img src="{{ '/storage/productos/' . $producto->id . '/' . $producto->imagenes[0]->nombre}}" class="img-fluid rounded mx-auto d-block" style="max-width: 50%; height: auto;">
+                <form action="{{ route('productos.edit') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id_producto" value="{{ $producto->id }}">
             <input type="hidden" name="disponible" id="disponible" class="form-control mx-auto" style="max-width: 300px;" value="1" >
@@ -14,19 +14,29 @@
                     <h3>Sobre el producto</h3>
                     <div class="form-group text-center">
                         <label for="id_categoria">Selecciona categoria</label>
-                        <select name="id_categoria" id="id_categoria" required class="form-control mx-auto" style="max-width: 300px;">
-                            <option value="">Seleccione una categoria</option>
+                        <!-- Select de Categorías -->
+                        <select name="id_categoria" id="id_categoria" required class="form-control mx-auto" style="max-width: 300px;" onchange="updateSubcategories(this.value)">
+                            <option value="">Seleccione una categoría</option>
                             @foreach ($categorias as $categoria)
-                                <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+                                <option value="{{ $categoria->id }}" 
+                                    {{ $categoria->id === $producto->id_categoria ? 'selected' : '' }}>
+                                    {{ $categoria->nombre }}
+                                </option>
                             @endforeach
                         </select>
-                    </div>
-                    <div class="form-group text-center mt-3">
-                        <label for="id_subcategoria">Selecciona subcategoria</label>
-                        <select name="id_subcategoria" id="id_subcategoria" required class="form-control mx-auto" style="max-width: 300px;">
-                            <option value="">Seleccione una subcategoria</option>
-                        </select>
-                    </div>
+
+                    <label for="id_subcategoria">Selecciona categoria</label>
+                    <!-- Select de Subcategorías -->
+                    <select name="id_subcategoria" id="id_subcategoria" required class="form-control mx-auto" style="max-width: 300px;">
+                        <option value="">Seleccione una subcategoría</option>
+                        @foreach ($subcategorias as $subcategoria)
+                            <option value="{{ $subcategoria->id }}" 
+                                {{ $subcategoria->id === $producto->id_subcategoria ? 'selected' : '' }}>
+                                {{ $subcategoria->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
+</div>
                     <div class="form-group text-center mt-2">
                         <label for="nombre">Nombre del producto</label>
                         <input type="text" name="nombre" id="nombre" class="form-control mx-auto" style="max-width: 300px;" value="{{$producto->nombre}}"readonly>
@@ -58,9 +68,10 @@
                             <label for="descripcionlarga">Descripción larga</label>
                             <textarea class="form-control" id="descripcionlarga" name="descripcionlarga" rows="9"  required>{{$producto->caracteristicas->descripcion}}</textarea>
                         </div>
+                        <h3>Imágenes</h3>
                         <div class="form-group text-center mt-2">
                             <label for="imagenes"></label>
-                            <input type="file" name="imagenes[]" id="imagenes" class="form-control-file mx-auto" required multiple>
+                            <input type="file" name="imagenes[]" id="imagenes" class="form-control-file mx-auto"  multiple>
                         </div>
                         <div class="form-group text-center mt-2">
                             <label for="imagenes"></label>
@@ -115,5 +126,8 @@ $(document).ready(function() {
         }
     });
 });
+
+
+
 </script>
 @endsection

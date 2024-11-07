@@ -28,15 +28,20 @@
                     <td>{{$producto->nombre}}</td>
                     <td>{{$producto->descripcion}}</td>
                     <td>
-                        <div class="row">
+                        <div class="row mt-5">
                             <form action="{{ route('productos.actualizar',$producto) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <button type="submit" class="m-2 col-4 btn btn-outline-secondary">Editar</button>
+                                <button type="submit" class="btn">
+                                <img src="{{ asset('imagenes/editar.jpg') }}" alt="Eliminar" style="width: 50px; height: 50px;">
+                            </button>
                             </form>
-                            <form action="{{ route('productos.eliminar',$producto) }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('productos.eliminar', $producto) }}" method="POST" enctype="multipart/form-data" onsubmit="return confirmDelete();">
                                 @csrf
-                                @method('DELETE')
-                                <button type="submit" class="m-2 col-4 btn btn-outline-danger">Eliminar</button>
+                                <!-- Este campo indica que el método de la solicitud es DELETE -->
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="btn">
+                                    <img src="{{ asset('imagenes/eliminar.png') }}" alt="Eliminar" style="width: 50px; height: 50px;">
+                                </button>
                             </form>
                         </div>
                     </td>
@@ -56,5 +61,9 @@
         url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
     }
 });
+
+function confirmDelete() {
+        return confirm('¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.');
+    }
 </script>
 @endsection

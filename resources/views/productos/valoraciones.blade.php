@@ -8,6 +8,7 @@
         @foreach($productos->chunk(5) as $chunk)
             <div class="row mt-4 justify-content-center">
                 @foreach($chunk as $producto)
+                    <!-- Asegura que cada producto ocupa el 2 columnas -->
                     <div class="col-2 d-flex flex-column align-items-center justify-content-center" data-valoracion="{{ round($producto->valoracion_media) }}" id="producto-{{ $producto->id }}">
                         <a href="{{ route('productos.verproducto', $producto) }}">
                             <img src="{{ '/storage/productos/' . $producto->id . '/' . $producto->imagenes[0]->nombre }}" 
@@ -18,6 +19,7 @@
                             <p class="text-center">{{ $producto->nombre }}</p>
                         </div>
                         <div class="rating">
+                            <!-- Generar inputs de rating para cada producto usando su ID -->
                             <input value="5" name="rate{{ $producto->id }}" id="star5{{ $producto->id }}" type="radio">
                             <label title="5 stars" for="star5{{ $producto->id }}"></label>
                             <input value="4" name="rate{{ $producto->id }}" id="star4{{ $producto->id }}" type="radio">
@@ -41,7 +43,6 @@
 </div>
 
 <script>
-
 document.addEventListener("DOMContentLoaded", function() {
     // Asigna las valoraciones iniciales cuando la página carga por primera vez
     asignarValoraciones();
@@ -49,22 +50,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Función para asignar valoraciones a cada producto basado en el atributo `data-valoracion`
 function asignarValoraciones() {
-    // Selecciona todos los productos que tienen el atributo `data-valoracion`
     const productos = document.querySelectorAll('[data-valoracion]');
     
     productos.forEach(producto => {
         const valoracionMedia = producto.getAttribute('data-valoracion');
-        
-        // Selecciona el input de radio correspondiente a la valoración del producto
-        const ratingInput = producto.querySelector(`input[value="${valoracionMedia}"]`);
-        
-        if (ratingInput) {
-            ratingInput.checked = true; // Marca la estrella adecuada
+
+        // Verificar que el valor de la valoración sea un número y esté en el rango esperado
+        if (valoracionMedia && valoracionMedia >= 1 && valoracionMedia <= 5) {
+            const ratingInput = producto.querySelector(`input[value="${valoracionMedia}"]`);
+            if (ratingInput) {
+                ratingInput.checked = true; // Marca la estrella adecuada
+            }
         }
     });
 }
 
-// Variables de control para paginación
+
+// Script para la carga de productos con AJAX
 let page = 1;
 let loading = false;
 
@@ -76,15 +78,14 @@ window.onscroll = function() {
     }
 };
 
-// Función para cargar más productos al hacer scroll
 function loadMoreProducts(page) {
     let loadingIndicator = document.getElementById('loading');
     loadingIndicator.style.display = 'block';
 
-    fetch(`/productos/novedades?page=${page}`, {
+    fetch(`/productos/valoraciones?page=${page}`, {
         method: 'GET',
         headers: {
-            'X-Requested-With': 'XMLHttpRequest'  // Indica que es una solicitud AJAX
+            'X-Requested-With': 'XMLHttpRequest'  // Esto indica que es una solicitud AJAX
         }
     })
     .then(response => {
@@ -95,10 +96,10 @@ function loadMoreProducts(page) {
     })
     .then(data => {
         if (data.html) {
-            // Agregar los productos cargados al contenedor
+            // Agregar los productos al contenedor
             document.getElementById('product-container').innerHTML += data.html;
 
-            // Asignar valoraciones a los nuevos productos cargados
+            // Asignar valoraciones a los nuevos productos
             asignarValoraciones();
 
             // Si no hay más productos, muestra el mensaje de fin
@@ -116,17 +117,7 @@ function loadMoreProducts(page) {
     });
 }
 
-
 </script>
-
-
-
-
-
-
-
-
-
 
 
 <style>
@@ -170,6 +161,3 @@ function loadMoreProducts(page) {
 
 
 @endsection
-
-
-

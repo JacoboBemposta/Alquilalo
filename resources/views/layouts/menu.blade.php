@@ -4,11 +4,12 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>InstiJacoboB</title>
+    <title>Alquilalo</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
     @yield('css')
     <style>
+    /* --------HEADER----------*/
 
       header {
           width: 100%;
@@ -42,9 +43,10 @@
           margin-top: 2%;
         }
         .form-container {
-          background: linear-gradient(180deg, #e0f7fa 0%, #6A5ACD 100%);
+          background: linear-gradient(180deg, grey 80%, darkgreen 100%);
           padding: 20px;
           border-radius: 10px;
+          margin-bottom: 25px;;
         }
         .contenedor-img{
           width: 100%;
@@ -52,17 +54,32 @@
           border:solid;
           object-fit: contain;
         }
-        /* Estilos generales para el footer */
-      .footer {
+
+
+       /* --------FOOTER----------*/
+      
+      
+       .footer {
+   
+        bottom: 0;
+        width: 100%;
         background-color: #343a40;
         color: #ffffff;
-        padding: 60px 0;
+        padding: 20px;
+      }
+
+
+
+      .footer .container {
+          max-width: 1200px; /* Ancho máximo del contenedor */
+          margin: 0 auto; /* Centrar el contenedor */
+          flex: 1;  /* Hace que el contenido ocupe el espacio restante */
+          overflow-y: auto; /* Habilita el scroll cuando el contenido sea demasiado grande */
       }
 
       .footer h5 {
         color: #ffffff;
-        font-size: 18px;
-        margin-bottom: 20px;
+        font-size: 12px;
       }
 
       .footer ul {
@@ -70,14 +87,10 @@
         padding-left: 0;
       }
 
-      .footer ul li {
-        margin-bottom: 10px;
-      }
-
       .footer ul li a {
         color: #bbbbbb;
         text-decoration: none;
-        font-size: 14px;
+        font-size: 12px;
         transition: color 0.2s;
       }
 
@@ -86,11 +99,18 @@
       }
 
       /* Estilos específicos para los enlaces de tiendas de aplicaciones */
-      .footer .mt-4 {
-        margin-top: 30px;
+
+
+      .footer img {
+          display: block; 
+          margin: 0 auto;
       }
+      
+      /* --------VISTAS FOOTER----------*/
+
+
       .faq-section {
-            background: linear-gradient(110deg, #e0f7fa 0%, #1CE8E2 100%);
+            background: linear-gradient(110deg, #e0f7fa 0%, darkgreen 100%);
             padding: 50px 0;
             margin-bottom: 30px;
             border: 1px solid #dee2e6;
@@ -108,6 +128,30 @@
         .faq-answer {
             color:black;
             margin-bottom: 30px;
+        }
+
+        /* --------VISTA CATEGORIAS----------*/
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card-title {
+            font-weight: bold;
+        }
+
+        .list-unstyled li {
+            padding: 5px 0;
+        }
+
+        .text-muted {
+            font-size: 0.9rem;
         }
 
     </style>
@@ -139,7 +183,7 @@
             <a class="nav-link" href="{{ route('productos.novedades') }}">Novedades</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/">Ofertas</a>
+            <a class="nav-link" href="{{ route('productos.ofertas') }}">Ofertas</a>
           </li>
           @auth
           <li class="nav-item">
@@ -190,60 +234,56 @@
     </div>
   </nav>
 </header>
-<div class="banner">
-
-</div>
 
 
-<div class="row mt-5">
-  <div class="col-2 bg-info"></div>
+
+
   @yield('contenido')
-  <div class="col-2 bg-info"></div>
-</div>
 
 
 <footer class="footer">
   <div class="container">
-    <div class="row mt-4">
-      <div class="col-md-4">
+    <div class="row mt-4 text-center">
+      <div class="col-md-4 text-center">
         <h5>Alquilalo</h5>
         <ul class="list-unstyled">
-          <li><a href="#">Quiénes somos</a></li>
-          <li><a href="#">Cómo funciona</a></li>
-          <li><a href="#">Contáctanos</a></li>
+          <li><a href="{{ url('/general/quienessomos') }}">Quiénes somos</a></li>
+          <li><a href="{{ url('/general/comofunciona') }}">Cómo funciona</a></li>
+          <li><a href="{{ url('/general/contactanos') }}">Contáctanos</a></li>
         </ul>
       </div>
       <div class="col-md-4">
         <h5>Soporte</h5>
         <ul class="list-unstyled">
           <li><a href="#">Centro de ayuda</a></li>
-          <li><a href="#">Normas de la comunidad</a></li>
+          <li><a href="{{ url('/general/normas') }}">Normas de la comunidad</a></li>
           <li><a href="{{ url('/general/preguntas') }}">Preguntas frecuentes</a></li>
         </ul>
       </div>
       <div class="col-md-4">
         <h5>Legal</h5>
         <ul class="list-unstyled">
-          <li><a href="#">Aviso legal</a></li>
-          <li><a href="#">Condiciones de uso</a></li>
-          <li><a href="#">Política de privacidad</a></li>
+          <li><a href="{{ url('/general/avisolegal') }}">Aviso legal</a></li>
+          <li><a href="{{ url('/general/condicionesuso') }}">Condiciones de uso</a></li>
+          <li><a href="{{ url('/general/politica') }}">Política de privacidad</a></li>
         </ul>
       </div>
     </div>
-    <div class="row mt-4">
+    <div class="row mt-4 text-center">
       <div class="col-md-4">
         <a href="https://www.apple.com/es/store" target="_blank">
-          <img src="/path/apple.jpeg" alt="Apple Store" width="80">
+          <img src="/path/apple.jpeg" alt="Apple Store" width="40">
         </a>
       </div>
       <div class="col-md-4">
         <a href="https://appgallery.huawei.com/" target="_blank">
-          <img src="/path/app gallery.png" alt="AppGallery" width="80">
+          <img src="/path/app gallery.png" alt="AppGallery" width="40">
         </a>
       </div>
+      
       <div class="col-md-4">
         <a href="https://play.google.com/store" target="_blank">
-          <img src="/path/google.png" alt="Google Play" width="80">
+          <img src="/path/google.png" alt="Google Play" width="40">
         </a>
       </div>
     </div>

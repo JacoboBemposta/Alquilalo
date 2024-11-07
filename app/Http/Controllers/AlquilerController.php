@@ -8,11 +8,28 @@ use App\Http\Requests\UpdateAlquilerRequest;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class AlquilerController extends Controller
 {
-
-
+    public function mostrarFormularioReserva(Producto $producto)
+    {
+        // Obtener todas las reservas futuras del producto
+        $reservas = Alquiler::where('id_producto', $producto->id)
+            ->where('fecha_inicio', '>=', now())  // Solo reservas futuras
+            ->get();
+    
+        // Formatear las fechas reservadas
+        $fechas_reservadas = $reservas->map(function ($reserva) {
+            return Carbon::parse($reserva->fecha_inicio)->format('Y-m-d'); // Solo la fecha de inicio
+        });
+    
+        // Pasar las fechas reservadas al frontend
+        return view('productos.reservar', [
+            'producto' => $producto,
+            'fechas_reservadas' => $fechas_reservadas
+        ]);
+    }
     /**
      * Display a listing of the resource.
      */

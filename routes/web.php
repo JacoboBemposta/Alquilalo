@@ -8,8 +8,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProductoController;
-use App\Models\caracteristica;
-use App\Models\Subcategoria;
+use App\Http\Controllers\SubcategoriaController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -36,9 +35,24 @@ Route::post('/productos/edit', [ProductoController::class, 'edit'])->name('produ
 Route::get('/productos/misproductos', [ProductoController::class, 'misproductos'])->name('productos.misproductos'); 
 Route::delete('/productos/{producto}', [ProductoController::class, 'destroy'])->name('productos.eliminar');
 Route::get('/productos/verproducto/{producto}', [ProductoController::class, 'verproducto'])->name('productos.verproducto');
-Route::get('/productos.novedades', [ProductoController::class, 'novedades'])->name('productos.novedades');
+Route::get('/productos/novedades', [ProductoController::class, 'novedades'])->name('productos.novedades');
+Route::get('/productos/ofertas', [ProductoController::class, 'ofertas'])->name('productos.ofertas');
+Route::get('/productos/valoraciones', [ProductoController::class, 'valoraciones'])->name('productos.valoraciones');
 // Route::middleware(['auth'])->group(function () {
 //     Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos.create');
 //     Route::post('/productos/store', [ProductoController::class, 'store'])->name('productos.store');
 // });
 Route::view('/general/preguntas', 'general.preguntas');
+Route::view('/general/comofunciona', 'general.comofunciona');
+Route::view('/general/contactanos', 'general.contactanos');
+Route::view('/general/normas', 'general.normas');
+Route::view('/general/quienessomos', 'general.quienessomos');
+Route::view('/general/avisolegal', 'general.avisolegal');
+Route::view('/general/condicionesuso', 'general.condicionesuso');
+Route::view('/general/politica', 'general.politica');
+
+
+Route::get('/subcategoria/{id}', [SubcategoriaController::class, 'index'])->name('subcategoria.index');
+
+Route::post('/productos/{producto}/reservar', [ProductoController::class, 'actualizarReserva'])->name('productos.actualizarReserva');
+
