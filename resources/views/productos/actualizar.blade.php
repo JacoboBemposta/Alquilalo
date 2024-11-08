@@ -93,7 +93,7 @@
 
             </div>
             <div class="text-center mt-5">
-                <button type="submit" class="btn btn-secondary    ">Actualizar Datos</button>
+                <button type="submit" class="btn btn-secondary">Actualizar Datos</button>
             </div>
         </form>
     </div>

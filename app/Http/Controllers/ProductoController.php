@@ -131,11 +131,11 @@ public function index(){
         $producto->precio_semana = $request->precio_semana;
         $producto->precio_mes = $request->precio_mes;
         $producto->save();
-    
-        if ($producto->caracterisiticas) {
-            $producto->caracterisiticas->descuento = $request->descuento;
-            $producto->caracterisiticas->descripcion = $request->descripcionlarga;
-            $producto->caracterisiticas->save();
+ 
+        if ($producto->caracteristicas) {
+            $producto->caracteristicas->descuento = $request->descuento;
+            $producto->caracteristicas->descripcion = $request->descripcionlarga;
+            $producto->caracteristicas->save();
         }
     
         // Verificar si hay imágenes nuevas en la solicitud

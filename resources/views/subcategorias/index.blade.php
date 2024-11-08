@@ -1,7 +1,6 @@
 @extends('layouts.menu')
 
 @section('contenido')
-
 <div class="col-12">
     <!-- Contenedor de productos -->
     <div id="product-container" class="row d-flex justify-content-center">
@@ -122,51 +121,6 @@ function loadMoreProducts(page) {
 
 
 
-
-
-
-
-
-
-
-<style>
-    .rating {
-        width: 60%;
-    }
-    /* From Uiverse.io by andrew-demchenk0 */ 
-    .rating:not(:checked) > input {
-        position: absolute;
-        appearance: none;
-    }
-
-    .rating:not(:checked) > label {
-        float: right;
-        cursor: pointer;
-        font-size: 30px;
-        color: #666;
-    }
-
-    .rating:not(:checked) > label:before {
-        content: '★';
-    }
-
-    .rating > input:checked + label:hover,
-    .rating > input:checked + label:hover ~ label,
-    .rating > input:checked ~ label:hover,
-    .rating > input:checked ~ label:hover ~ label,
-    .rating > label:hover ~ input:checked ~ label {
-        color: #e58e09;
-    }
-
-    .rating:not(:checked) > label:hover,
-    .rating:not(:checked) > label:hover ~ label {
-        color: #ff9e0b;
-    }
-
-    .rating > input:checked ~ label {
-        color: #ffa723;
-    }
-</style>
 
 
 @endsection

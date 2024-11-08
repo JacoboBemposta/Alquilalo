@@ -1,0 +1,347 @@
+/** VALORACIONES **/
+
+.rating {
+    width: 60%;
+}
+
+/* From Uiverse.io by andrew-demchenk0 */
+.rating:not(:checked)>input {
+    position: absolute;
+    appearance: none;
+}
+
+.rating:not(:checked)>label {
+    float: right;
+    cursor: pointer;
+    font-size: 30px;
+    color: #666;
+}
+
+.rating:not(:checked)>label:before {
+    content: '★';
+}
+
+.rating>input:checked+label:hover,
+.rating>input:checked+label:hover~label,
+.rating>input:checked~label:hover,
+.rating>input:checked~label:hover~label,
+.rating>label:hover~input:checked~label {
+    color: #e58e09;
+}
+
+.rating:not(:checked)>label:hover,
+.rating:not(:checked)>label:hover~label {
+    color: #ff9e0b;
+}
+
+.rating>input:checked~label {
+    color: #ffa723;
+}
+
+/** LOADER **/
+/* From Uiverse.io by david-mohseni */
+.loader {
+    position: relative;
+    width: 54px;
+    height: 54px;
+    border-radius: 10px;
+}
+
+.loader div {
+    width: 8%;
+    height: 24%;
+    background: rgb(128, 128, 128);
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    opacity: 0;
+    border-radius: 50px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    animation: fade458 1s linear infinite;
+}
+
+@keyframes fade458 {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0.25;
+    }
+}
+
+.loader .bar1 {
+    transform: rotate(0deg) translate(0, -130%);
+    animation-delay: 0s;
+}
+
+.loader .bar2 {
+    transform: rotate(30deg) translate(0, -130%);
+    animation-delay: -1.1s;
+}
+
+.loader .bar3 {
+    transform: rotate(60deg) translate(0, -130%);
+    animation-delay: -1s;
+}
+
+.loader .bar4 {
+    transform: rotate(90deg) translate(0, -130%);
+    animation-delay: -0.9s;
+}
+
+.loader .bar5 {
+    transform: rotate(120deg) translate(0, -130%);
+    animation-delay: -0.8s;
+}
+
+.loader .bar6 {
+    transform: rotate(150deg) translate(0, -130%);
+    animation-delay: -0.7s;
+}
+
+.loader .bar7 {
+    transform: rotate(180deg) translate(0, -130%);
+    animation-delay: -0.6s;
+}
+
+.loader .bar8 {
+    transform: rotate(210deg) translate(0, -130%);
+    animation-delay: -0.5s;
+}
+
+.loader .bar9 {
+    transform: rotate(240deg) translate(0, -130%);
+    animation-delay: -0.4s;
+}
+
+.loader .bar10 {
+    transform: rotate(270deg) translate(0, -130%);
+    animation-delay: -0.3s;
+}
+
+.loader .bar11 {
+    transform: rotate(300deg) translate(0, -130%);
+    animation-delay: -0.2s;
+}
+
+.loader .bar12 {
+    transform: rotate(330deg) translate(0, -130%);
+    animation-delay: -0.1s;
+}
+
+
+/* --------HEADER----------*/
+
+header {
+    width: 100%;
+    position: relative;
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    /* Mantiene la relación de aspecto cuadrada */
+    overflow: hidden;
+    /* background-color: #f0f0f0; Color de fondo por si la imagen no carga */
+}
+
+.image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* Ajusta la imagen al contenedor */
+}
+
+.banner {
+    background: url('/imagenes/banner.png') no-repeat center;
+    background-size: contain;
+    text-align: center;
+    padding: 50px 20px;
+    height: 20vh;
+    /* Ajusta la altura según sea necesario */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+}
+
+.form-container {
+    background: linear-gradient(180deg, grey 80%, darkgreen 100%);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    ;
+}
+
+.contenedor-img {
+    width: 100%;
+    height: 100%;
+    border: solid;
+    object-fit: contain;
+}
+
+
+/* --------FOOTER----------*/
+
+
+.footer {
+
+    bottom: 0;
+    width: 100%;
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 20px;
+}
+
+
+
+.footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.footer h5 {
+    color: #ffffff;
+    font-size: 12px;
+}
+
+.footer ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.footer ul li a {
+    color: #bbbbbb;
+    text-decoration: none;
+    font-size: 12px;
+    transition: color 0.2s;
+}
+
+.footer ul li a:hover {
+    color: #ffffff;
+}
+
+/* Estilos específicos para los enlaces de tiendas de aplicaciones */
+
+
+.footer img {
+    display: block;
+    margin: 0 auto;
+}
+
+/* --------VISTAS FOOTER----------*/
+
+
+.faq-section {
+    background: linear-gradient(110deg, #e0f7fa 0%, darkgreen 100%);
+    padding: 50px 0;
+    margin-bottom: 30px;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+}
+
+.faq-section h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.faq-question {
+    margin-bottom: 20px;
+    color: #1b0b86;
+}
+
+.faq-answer {
+    color: black;
+    margin-bottom: 30px;
+}
+
+/* --------VISTA CATEGORIAS----------*/
+
+.card {
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-title {
+    font-weight: bold;
+}
+
+.list-unstyled li {
+    padding: 5px 0;
+}
+
+.text-muted {
+    font-size: 0.9rem;
+}
+
+/* --------BOTON btn -----*/
+.btn {
+    --color: darkgreen;
+    --color2: rgb(10, 25, 30);
+    padding: 0.8em 1.75em;
+    background-color: transparent;
+    border-radius: 6px;
+    border: .3px solid var(--color);
+    transition: .5s;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 1;
+    font-weight: 300;
+    font-size: 17px;
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+    text-transform: uppercase;
+    color: var(--color);
+}
+
+.btn::after,
+.btn::before {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    transform: skew(90deg) translate(-50%, -50%);
+    position: absolute;
+    inset: 50%;
+    left: 25%;
+    z-index: -1;
+    transition: .5s ease-out;
+    background-color: var(--color);
+}
+
+.btn::before {
+    top: -50%;
+    left: -25%;
+    transform: skew(90deg) rotate(180deg) translate(-50%, -50%);
+}
+
+.btn:hover::before {
+    transform: skew(45deg) rotate(180deg) translate(-50%, -50%);
+}
+
+.btn:hover::after {
+    transform: skew(45deg) translate(-50%, -50%);
+}
+
+.btn:hover {
+    color: var(--color2);
+}
+
+.btn:active {
+    filter: brightness(.7);
+    transform: scale(.98);
+}

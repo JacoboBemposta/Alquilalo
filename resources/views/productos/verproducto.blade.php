@@ -62,11 +62,11 @@
                     <!-- Campo oculto para enviar el precio total calculado -->
                     <input type="hidden" name="precio_total" id="precio_total">
 
-                    <button type="submit" class="btn btn-primary">Alquilalo</button>
+                    <button type="submit" class="btn btn-secondary">Alquilalo</button>
                 </form>
                 <div class="mt-1">
                     <p>Valoraciones:</p>
-                    <div class="rating">
+                    <div class="rating" style="width:9vw;">
                         <input value="5" name="rate" id="star5" type="radio">
                         <label title="text" for="star5"></label>
                         <input value="4" name="rate" id="star4" type="radio">
@@ -208,46 +208,5 @@
 
 
 
-<style>
-    .img-miniatura {
-        width: 80%;
-        height: 0;
-        object-fit: cover;
-        /* Ajusta la imagen para llenar el contenedor y mantener la proporción */
-    }
 
-    /* From Uiverse.io by andrew-demchenk0 */
-    .rating:not(:checked)>input {
-        position: absolute;
-        appearance: none;
-    }
-
-    .rating:not(:checked)>label {
-        float: right;
-        cursor: pointer;
-        font-size: 30px;
-        color: #666;
-    }
-
-    .rating:not(:checked)>label:before {
-        content: '★';
-    }
-
-    .rating>input:checked+label:hover,
-    .rating>input:checked+label:hover~label,
-    .rating>input:checked~label:hover,
-    .rating>input:checked~label:hover~label,
-    .rating>label:hover~input:checked~label {
-        color: #e58e09;
-    }
-
-    .rating:not(:checked)>label:hover,
-    .rating:not(:checked)>label:hover~label {
-        color: #ff9e0b;
-    }
-
-    .rating>input:checked~label {
-        color: #ffa723;
-    }
-</style>
 @endsection

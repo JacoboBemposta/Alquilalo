@@ -82,7 +82,7 @@
 
             </div>
             <div class="text-center mt-5">
-                <button type="submit" class="btn btn-primary">Subir Producto</button>
+                <button type="submit" class="btn btn-secondary">Subir Producto</button>
             </div>
         </form>
     </div>

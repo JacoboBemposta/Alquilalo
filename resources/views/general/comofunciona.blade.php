@@ -68,12 +68,12 @@
         </div>
         <div class="step">
             <img class="img-fluid" src="{{ asset('imagenes/horario.png') }}" alt="Elige tu plan">
-            <h2>2. Elige tu plan</h2>
-            <p>Selecciona el período de tiempo que prefieras para alquilar el producto.</p>
+            <h2 class="mt-2">2. Elige tu plan</h2>
+            <p class="mt-4">Selecciona el período de tiempo que prefieras para alquilar el producto.</p>
         </div>
         <div class="step">
             <img class="img-fluid" src="{{ asset('imagenes/recibelo.jpg') }}" alt="recibe tu producto">
-            <h2>3. Recíbelo en casa</h2>
+            <h2 class="mt-2">3. Recíbelo en casa</h2>
             <p>Te enviamos el producto rápidamente para que puedas empezar a usarlo.</p>
             <p>También puedes recogerlo en nuestra sede si lo prefieres</p>
         </div>

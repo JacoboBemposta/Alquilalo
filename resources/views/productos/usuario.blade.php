@@ -52,6 +52,7 @@
         @endif
     </div>
 </div>
+
 <script>
     new DataTable('#example', {
     info: false,

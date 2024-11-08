@@ -1,13 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.menu')
 
-@section('content')
+@section('contenido')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
+                <div class="card-body form-container" style="height: 50vh";>
+                    <a class="d-flex flex-column align-items-center justify-content-center mb-5" href="#">
+                        <img src="/imagenes/logoverde1.png" alt="logo" class="logo-pequeno" style="width: 8vw; height: auto;">
+                    </a>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -53,12 +55,12 @@
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn">
                                     {{ __('Login') }}
                                 </button>
 
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    <a class="btn" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
