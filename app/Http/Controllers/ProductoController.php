@@ -228,7 +228,7 @@ public function index(){
         if ($request->ajax()) {
             // Si la solicitud es AJAX, devolver el HTML y si hay más páginas
             return response()->json([
-                'html' => view('productos.novedades_data', compact('productos'))->render(),
+                'html' => view('productos.data', compact('productos'))->render(),
                 'next_page' => $productos->hasMorePages() ? true : false
             ]);
         }
@@ -244,15 +244,15 @@ public function index(){
             // Verificar que exista un descuento (se asume que el campo 'descuento' está en la tabla 'caracteristicas')
             $query->whereNotNull('descuento')->where('descuento', '>', 0);
         })->orderBy('created_at', 'desc')->paginate(10);
-    
+        
         if ($request->ajax()) {
             // Si la solicitud es AJAX, devolver el HTML y si hay más páginas
             return response()->json([
-                'html' => view('productos.ofertas_data', compact('productos'))->render(),
+                'html' => view('productos.data', compact('productos'))->render(),
                 'next_page' => $productos->hasMorePages() ? true : false
             ]);
         }
-    
+       
         // Si la solicitud no es AJAX, devolver la vista estándar
         return view('productos.ofertas', compact('productos'));
     }
@@ -265,7 +265,7 @@ public function index(){
         if ($request->ajax()) {
             // Si la solicitud es AJAX, devolver el HTML y si hay más páginas
             return response()->json([
-                'html' => view('productos.novedades_data', compact('productos'))->render(),
+                'html' => view('productos.data', compact('productos'))->render(),
                 'next_page' => $productos->hasMorePages() ? true : false
             ]);
         }

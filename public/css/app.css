@@ -157,19 +157,7 @@ header {
     /* Ajusta la imagen al contenedor */
 }
 
-.banner {
-    background: url('/imagenes/banner.png') no-repeat center;
-    background-size: contain;
-    text-align: center;
-    padding: 50px 20px;
-    height: 20vh;
-    /* Ajusta la altura según sea necesario */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2%;
-}
+    /** FOMRULARIOS **/
 
 .form-container {
     background: linear-gradient(180deg, grey 80%, darkgreen 100%);

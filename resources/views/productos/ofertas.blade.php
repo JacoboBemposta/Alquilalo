@@ -5,6 +5,8 @@
 <div class="col-12">
     <!-- Contenedor de productos -->
     <div id="product-container" class="row d-flex justify-content-center">
+
+
         @foreach($productos->chunk(5) as $chunk)
             <div class="row mt-4 justify-content-center">
                 @foreach($chunk as $producto)
