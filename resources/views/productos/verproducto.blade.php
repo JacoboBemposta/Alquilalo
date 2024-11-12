@@ -66,7 +66,7 @@
                 </form>
                 <div class="mt-1">
                     <p>Valoraciones:</p>
-                    <div class="rating" style="width:9vw;">
+                    <div class="rating" style="width:12vw;">
                         <input value="5" name="rate" id="star5" type="radio">
                         <label title="text" for="star5"></label>
                         <input value="4" name="rate" id="star4" type="radio">

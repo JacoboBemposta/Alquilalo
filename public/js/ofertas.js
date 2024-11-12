@@ -51,7 +51,11 @@ function loadMoreProducts(page) {
     .then(data => {
         if (data.html) {
             // Agregar los productos al contenedor
-            document.getElementById('product-container').innerHTML += data.html;
+            const productContainer = document.getElementById('product-container');
+            productContainer.innerHTML += data.html;
+
+            // Asignar las valoraciones a los nuevos productos cargados
+            asignarValoraciones();
 
             // Si no hay más productos, muestra el mensaje de fin
             if (!data.next_page) {

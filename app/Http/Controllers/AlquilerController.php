@@ -9,6 +9,7 @@ use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class AlquilerController extends Controller
 {
@@ -62,6 +63,7 @@ class AlquilerController extends Controller
         $producto = Producto::findOrFail($request->id_producto);
         $arrendador_id = $producto->id_usuario; // Suponiendo que el campo 'id_usuario' en la tabla productos es el arrendador
 
+
         // Obtener el usuario autenticado como arrendatario
         $arrendatario_id = Auth::id();
 
@@ -75,6 +77,9 @@ class AlquilerController extends Controller
             'precio_total' => $request->precio_total,
         ]);
 
+        $producto->acumulado += $request->precio_total;
+        dd($producto->acumulado);
+        $producto->save();
         return response()->json($alquiler, 201);
     }
 
@@ -102,11 +107,23 @@ class AlquilerController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Alquiler $alquiler)
+    public function cancelarAlquiler(Alquiler $alquiler)
     {
-        //
+        DB::beginTransaction();
+        try {
+            // Lógica de eliminación y actualización del acumulado
+            $producto = $alquiler->producto;
+            $producto->acumulado -= $alquiler->precio_total;
+            $producto->save();
+            $alquiler->delete();
+    
+            // Commit de la transacción
+            DB::commit();
+            
+            return redirect()->route('productos.verproducto', $producto)->with('success', 'Alquiler eliminado correctamente');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Hubo un error al eliminar el alquiler');
+        }
     }
 }

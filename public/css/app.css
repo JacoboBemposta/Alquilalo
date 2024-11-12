@@ -1,7 +1,7 @@
 /** VALORACIONES **/
 
 .rating {
-    width: 60%;
+    width: 100%;
 }
 
 /* From Uiverse.io by andrew-demchenk0 */
@@ -332,4 +332,108 @@ header {
 .btn:active {
     filter: brightness(.7);
     transform: scale(.98);
+}
+
+
+/** ELEMENTOS ALQUILAR **/
+
+.comofunciona-container {
+    font-family: 'Arial', sans-serif;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-section {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.hero-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.steps-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;   
+}
+.steps-section img {
+    width: 30%; /* Asegura que las imágenes llenen su contenedor */
+    height: 30%; /* Ajusta la altura de las imágenes */
+    object-fit: cover; /* Mantiene la relación de aspecto */
+}
+.step {
+    background: #f8f8f8;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.step h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.step p {
+    font-size: 1rem;
+    color: #666;
+}
+
+.carousel-inner img {
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+}
+
+/* Estilos generales */
+.section-title {
+    font-size: 2em;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+.container-map {
+    margin-top: 5vh; /* Separación desde el top de la página */
+    width: 80vw; /* Ancho más amplio */
+    max-width: 700px; /* Máximo ancho del contenedor */
+    padding: 30px; /* Espacio interno */
+    color: white;
+    border-radius: 12px; /* Bordes redondeados */
+    margin-left: auto; /* Centra el contenedor horizontalmente */
+    margin-right: auto; /* Centra el contenedor horizontalmente */
+    text-align: center;
+}
+
+#map {
+    width: 100%; /* Hacer que el mapa ocupe el 100% del contenedor */
+    height: 400px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.product-carousel {
+    margin-bottom: 40px;
+}
+
+.product-carousel img {
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.product-carousel img:hover {
+    transform: scale(1.1);
+}
+
+.btn-section {
+    margin-top: 20px;
 }

@@ -55,4 +55,5 @@ Route::view('/general/politica', 'general.politica');
 Route::get('/subcategoria/{id}', [SubcategoriaController::class, 'index'])->name('subcategoria.index');
 
 Route::post('/productos/{producto}/reservar', [ProductoController::class, 'actualizarReserva'])->name('productos.actualizarReserva');
+Route::get('/productos/{producto}/alquileres', [ProductoController::class, 'obtenerAlquileres'])->name('productos.obtenerAlquileres');
 

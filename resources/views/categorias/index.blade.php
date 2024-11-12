@@ -14,7 +14,7 @@
     </div>
 </div>
         <!-- Contenedor para la tarjeta ampliada -->
-        <div class="enlarged-card" id="enlargedCard">
+        <div class="enlarged-card mt-5" id="enlargedCard">
 
 </div>
 

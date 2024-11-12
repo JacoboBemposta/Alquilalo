@@ -81,6 +81,7 @@
     z-index: 1000; /* Asegúrate de que esté encima de otros elementos */
     transform: translate(-50%, -50%) !important; /* Evita cualquier rotación */
     opacity: 0.8;
+    
 }
 
 /* Hover en la tarjeta ampliada para poder seleccionar las subcategorías sin que la animación continúe */
