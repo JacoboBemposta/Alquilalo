@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Función para asignar valoraciones a cada producto basado en el atributo `data-valoracion`
 function asignarValoraciones() {
+    // Selecciona todos los productos que tienen el atributo `data-valoracion`
     const productos = document.querySelectorAll('[data-valoracion]');
     
     productos.forEach(producto => {
@@ -33,6 +34,7 @@ window.onscroll = function() {
     }
 };
 
+// Función para cargar más productos al hacer scroll
 function loadMoreProducts(page) {
     let loadingIndicator = document.getElementById('loading');
     loadingIndicator.style.display = 'block';

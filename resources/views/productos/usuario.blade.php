@@ -12,7 +12,8 @@
     }
 
     /* Estilos generales para centrar contenido */
-    th, td {
+    th,
+    td {
         padding: 10px;
         text-align: center;
         vertical-align: middle;
@@ -20,7 +21,8 @@
 
     /* Ajustes específicos para la columna "Acumulado" */
     .acumulado {
-        width: 10vw; /* Ajustar ancho según necesidad */
+        width: 10vw;
+        /* Ajustar ancho según necesidad */
     }
 
     /* Flex para centrar el contenido en la columna acumulado */
@@ -28,7 +30,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 5px; /* Espacio entre importe y botón */
+        gap: 5px;
+        /* Espacio entre importe y botón */
     }
 </style>
 
@@ -43,7 +46,7 @@
                     <th>Producto</th>
                     <th>Nombre</th>
                     <th>Descripcion</th>
-                    <th class="acumulado" >Ganancias</th>
+                    <th class="acumulado">Ganancias</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -57,10 +60,11 @@
                     </td>
                     <td>{{ $producto->nombre }}</td>
                     <td>{{ $producto->descripcion }}</td>
-                    <td data-order="{{ $producto->acumulado }}" class="acumulado">
+                    <td class="acumulado">
                         <div class="d-flex justify-content-between align-items-center">
-                            <span>{{ number_format($producto->acumulado, 2) }} €</span>
-                            @if($producto->acumulado > 0)
+                            <!-- Mostrar el total de alquileres desde el array $totales_alquiler -->
+                            <span>{{ $totales_alquiler[$producto->id] ?? 0 }} €</span>
+                            @if(($totales_alquiler[$producto->id] ?? 0) > 0)
                             <button class="btn btn-sm toggle-alquileres">
                                 <img src="{{ asset('imagenes/vermas.jpg') }}" alt="Ver Alquileres">
                             </button>
@@ -88,6 +92,7 @@
                 @endforeach
             </tbody>
         </table>
+
         @endif
     </div>
 </div>

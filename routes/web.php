@@ -1,16 +1,22 @@
 <?php
 
 use App\Http\Controllers\AlquilerController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\CaracteristicaController;
 use App\Http\Controllers\CategoriaController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\SubcategoriaController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\userController;
+use App\Http\Controllers\ValoracionController;
+use App\Http\Controllers\ContactController;
+
+Route::get('/contact', function() {
+    return view('contact'); // Vista con el formulario de contacto
+});
+
+Route::post('/contact', [ContactController::class, 'sendContactEmail'])->name('contact.send');
+
 
 Route::controller(IndexController::class)->group(function(){
     Route::get('/', indexController::class);
@@ -24,10 +30,13 @@ Route::get('/alquileres/arrendador/{id_usuario}', [AlquilerController::class, 'a
 Auth::routes();
 
 Route::get('/categorias', [CategoriaController::class,'index'])->name('categorias.index');
+Route::get('/perfil', [UserController::class, 'show'])->name('perfil');
+
 
 Route::get('/subcategorias/{categoria_id}', [CategoriaController::class, 'getSubcategorias']);
 
 Route::get('/productos.create', [ProductoController::class, 'create'])->name('productos.create');
+Route::get('/productos/buscar', [ProductoController::class, 'buscar'])->name('productos.buscar');
 Route::post('/productos/store', [ProductoController::class, 'store'])->name('productos.store'); 
 Route::get('/productos/index', [ProductoController::class, 'index'])->name('productos.index'); 
 Route::post('/productos/actualizar/{producto}', [ProductoController::class, 'actualizar'])->name('productos.actualizar'); 
@@ -57,3 +66,9 @@ Route::get('/subcategoria/{id}', [SubcategoriaController::class, 'index'])->name
 Route::post('/productos/{producto}/reservar', [ProductoController::class, 'actualizarReserva'])->name('productos.actualizarReserva');
 Route::get('/productos/{producto}/alquileres', [ProductoController::class, 'obtenerAlquileres'])->name('productos.obtenerAlquileres');
 
+
+Route::get('/alquileres/{id}/edit/{id_producto}', [AlquilerController::class, 'edit'])->name('alquileres.edit');
+Route::delete('/alquileres/{id}/cancel', [AlquilerController::class, 'cancelar'])->name('alquileres.cancel');
+Route::put('/alquileres/{id}', [AlquilerController::class, 'update'])->name('alquileres.update');
+
+Route::post('/valoraciones/guardar', [ValoracionController::class, 'guardar'])->name('valoraciones.guardar');

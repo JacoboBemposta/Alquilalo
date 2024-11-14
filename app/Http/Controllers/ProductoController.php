@@ -10,7 +10,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Alquiler;
+use App\Models\Valoracion;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
+
 
 class ProductoController extends Controller
 {
@@ -96,15 +99,36 @@ class ProductoController extends Controller
         return view('productos.usuario', compact('productosDelUsuario'));
     }
 
-    public function misproductos(Producto $producto)
+    public function misproductos()
     {
-
         $user_id = Auth::id();
         // Obtener todos los productos del usuario logeado
         $productosDelUsuario = Producto::where('id_usuario', $user_id)->get();
 
-        return view('productos.usuario', compact('productosDelUsuario'));
+        // Array para almacenar el total de alquileres de cada producto
+        $totales_alquiler = [];
+
+        foreach ($productosDelUsuario as $producto) {
+            // Obtener todas las reservas del producto actual
+            $reservas = Alquiler::where('id_producto', $producto->id)->get();
+
+            // Variable para acumular el precio total de los alquileres de este producto
+            $total_alquiler = 0;
+
+            foreach ($reservas as $reserva) {
+                // Sumar el precio_total de esta reserva al acumulador
+                $total_alquiler += $reserva->precio_total;
+            }
+
+            // Guardar el total de alquileres de este producto en el array usando el ID del producto como clave
+            $totales_alquiler[$producto->id] = $total_alquiler;
+        }
+
+        // Devolver la vista pasando los datos de productos y totales de alquileres
+        return view('productos.usuario', compact('productosDelUsuario', 'totales_alquiler'));
     }
+
+
     public function actualizar(Producto $producto)
     {
         // Obtener todas las categorías con sus subcategorías
@@ -198,6 +222,8 @@ class ProductoController extends Controller
         $fechas_reservadas = [];
 
         foreach ($reservas as $reserva) {
+
+
             // Asegurarse de que fecha_inicio y fecha_fin son instancias de Carbon
             $fecha_inicio = Carbon::parse($reserva->fecha_inicio)->format('Y-m-d');
             $fecha_fin = Carbon::parse($reserva->fecha_fin)->format('Y-m-d');
@@ -212,9 +238,20 @@ class ProductoController extends Controller
                 $fecha_actual->addDay();  // Incrementar un día
             }
         }
+        $user_id = Auth::id(); // ID del usuario autenticado
 
-        // Devolver la vista pasando los datos
-        return view('productos.verproducto', compact('producto', 'fechas_reservadas'));
+        // Verificar si el usuario ha alquilado el producto y si la fecha de inicio es mayor o igual a hoy
+        $alquilerActivo = Alquiler::where('id_producto', $producto->id)
+            ->where('id_arrendatario', $user_id)
+            ->whereDate('fecha_inicio', '>=', Carbon::today())
+            ->exists();
+
+        // Obtener valoraciones del producto con la relación del usuario
+        $valoraciones = Valoracion::where('id_producto', $producto->id)
+            ->with('usuario')  // Asumiendo que tienes una relación `usuario` en Valoracion
+            ->get();
+        // Devolver la vista pasando los datos, incluyendo la suma de precio_total
+        return view('productos.verproducto', compact('producto', 'fechas_reservadas', 'alquilerActivo', 'valoraciones'));
     }
     /**
      * Eliminar un registro
@@ -260,7 +297,7 @@ class ProductoController extends Controller
         if ($request->ajax()) {
             // Si la solicitud es AJAX, devolver el HTML y si hay más páginas
             return response()->json([
-                'html' => view('productos.data', compact('productos'))->render(),
+                'html' => view('productos.datadesc', compact('productos'))->render(),
                 'next_page' => $productos->hasMorePages() ? true : false
             ]);
         }
@@ -346,10 +383,47 @@ class ProductoController extends Controller
         $producto = Producto::find($productoId);
 
         if ($producto) {
-            $alquileres = $producto->alquileres; 
+            $alquileres = $producto->alquileres;
             return response()->json($alquileres);
         }
-    
-        return response()->json([], 404); 
+
+        return response()->json([], 404);
     }
+
+
+
+
+
+    public function buscar(Request $request)
+    {
+        // Obtener la consulta de búsqueda
+        $query = $request->input('query');
+
+    
+        $productos = Producto::where(function ($queryBuilder) use ($query) {
+                $queryBuilder->where('nombre', 'like', "%$query%")
+                             ->orWhere('descripcion', 'like', "%$query%");
+            })
+            ->orWhere(function ($queryBuilder) use ($query) {
+                $queryBuilder->whereHas('subcategoria', function ($queryBuilder) use ($query) {
+                    $queryBuilder->where('nombre', 'like', "%$query%");
+                })
+                ->orWhereHas('caracteristicas', function ($queryBuilder) use ($query) {
+                    $queryBuilder->where('descripcion', 'like', "%$query%");
+                });
+            })
+            ->paginate(10); // Paginación con 10 productos por página
+        
+        if ($request->ajax()) {
+            return response()->json([
+                'html' => view('productos.databuscar', compact('productos'))->render(),
+                'next_page' => $productos->hasMorePages() // Indica si hay más páginas
+            ]);
+        }
+    
+        return view('productos.buscar', compact('productos'));
+    }
+    
+    
+
 }

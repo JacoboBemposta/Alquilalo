@@ -1,7 +1,7 @@
 @extends('layouts.menu')
 
 @section('contenido')
-<script src="/js/novedades.js"></script>
+<script src="/js/buscar.js"></script>
 <div class="col-12">
     <!-- Contenedor de productos -->
     <div id="product-container" class="row d-flex justify-content-center">
@@ -14,11 +14,11 @@
                         class="img-fluid mt-5 p-1"
                         style="width: 20vw; height: 20vh">
                 </a>
-                <div class="row" style="height: 10vh";>
+                <div class="row" style="height: 10vh;">
                     <p class="text-center truncate-text">{{ $producto->nombre }}</p>
                 </div>
-                <!-- Contenedor de estrellas -->
                 <div class="rating" style="text-align: center;">
+                    <!-- Generar inputs de rating para cada producto usando su ID -->
                     <input value="5" name="rate{{ $producto->id }}" id="star5{{ $producto->id }}" type="radio">
                     <label title="5 stars" for="star5{{ $producto->id }}"></label>
                     <input value="4" name="rate{{ $producto->id }}" id="star4{{ $producto->id }}" type="radio">
@@ -36,7 +36,8 @@
         @endforeach
     </div>
 
-    <div id="loading" class=" d-flex flex-column align-items-center justify-content-center" style="display: none;">
+    <!-- Indicador de carga -->
+    <div id="loading" class="d-flex flex-column align-items-center justify-content-center" style="display: none;">
         <div class="loader">
             <div class="bar1"></div>
             <div class="bar2"></div>
@@ -53,6 +54,4 @@
         </div>
     </div>
 </div>
-
-
 @endsection

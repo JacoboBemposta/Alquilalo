@@ -17,12 +17,12 @@ class User extends Authenticatable
 
     public function alquileresComoArrendatario()
     {
-        return $this->hasMany(Alquiler::class, 'id_usuario_arrendatario');
+        return $this->hasMany(Alquiler::class, 'id_arrendatario');
     }
 
     public function alquileresComoArrendador()
     {
-        return $this->hasMany(Alquiler::class, 'id_usuario_arrendador');
+        return $this->hasMany(Alquiler::class, 'id_arrendador');
     }
     public function valoracions(){
         return $this->hasMany(Valoracion::class,'id_usuario');

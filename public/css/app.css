@@ -1,13 +1,22 @@
 /** VALORACIONES **/
 
 .rating {
-    width: 100%;
+    display: inline-block; /* Centra el contenedor en el padre */
+    text-align: center; /* Centra el contenido de las estrellas dentro del contenedor */
+}
+.rating input[type="radio"] {
+    display: none; /* Ocultar los inputs */
 }
 
-/* From Uiverse.io by andrew-demchenk0 */
-.rating:not(:checked)>input {
-    position: absolute;
-    appearance: none;
+.rating label {
+    font-size: 1.5rem;
+    color: #ccc; /* Color por defecto de las estrellas apagadas */
+    cursor: pointer;
+    position: relative;
+}
+.rating label:hover,
+.rating input:checked ~ label {
+    color: #ff9e0b; /* Color dorado para las estrellas seleccionadas */
 }
 
 .rating:not(:checked)>label {
@@ -21,23 +30,34 @@
     content: '★';
 }
 
-.rating>input:checked+label:hover,
-.rating>input:checked+label:hover~label,
-.rating>input:checked~label:hover,
-.rating>input:checked~label:hover~label,
-.rating>label:hover~input:checked~label {
-    color: #e58e09;
+.col-2 {
+    display: inline-block;
+    text-align: center;
+    padding: 0;
+}
+.col-2, .col-md-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%; /* para asegurar que cada contenedor tenga el mismo alto */
+}
+.col-2 img {
+    max-width: 100%;
+    height: auto;
 }
 
-.rating:not(:checked)>label:hover,
-.rating:not(:checked)>label:hover~label {
-    color: #ff9e0b;
-}
 
-.rating>input:checked~label {
-    color: #ffa723;
+.truncate-text {
+    display: -webkit-box; /* Necesario para la truncación en WebKit */
+    -webkit-line-clamp: 2; /* Número máximo de líneas visibles */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2; /* Ajusta el espacio entre líneas si es necesario */
+    max-height: calc(1.2em * 2); /* Limita la altura basada en el número de líneas */
+    padding: 0 5px; /* Espacio lateral opcional */
 }
-
 /** LOADER **/
 /* From Uiverse.io by david-mohseni */
 .loader {
@@ -422,8 +442,17 @@ header {
 }
 
 .product-carousel {
-    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100%; /* Para que cada contenedor ocupe la altura completa */
+    box-sizing: border-box;
 }
+.product-carousel h2.section-title {
+    font-size: 1.5em;
+    margin-bottom: 1rem;
+}
+
 
 .product-carousel img {
     border-radius: 8px;
@@ -435,5 +464,6 @@ header {
 }
 
 .btn-section {
-    margin-top: 20px;
+    margin-top: auto;
+    text-align: center;
 }

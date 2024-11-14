@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Alquiler extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'id_producto',
         'id_arrendador',
@@ -17,16 +18,17 @@ class Alquiler extends Model
         'precio_total',
         'is_range',
     ];
+    protected $dates = ['fecha_inicio', 'fecha_fin'];
 
     public function producto(){
         return $this->belongsTo(Producto::class, 'id_producto');
     }
 
     public function arrendatario(){
-        return $this->belongsTo(User::class, 'id_usuario_arrendatario');
+        return $this->belongsTo(User::class, 'id_arrendatario');
     }
 
     public function arrendador(){
-        return $this->belongsTo(User::class, 'id_usuario_arrendador');
+        return $this->belongsTo(User::class, 'id_arrendador');
     }
 }

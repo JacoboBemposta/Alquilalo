@@ -5,12 +5,29 @@
 
 <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<style>
+    .dataTables_wrapper .dataTables_paginate {
+        margin-top: 50px;
+    }
 
+    /* Estilo para la imagen */
+    .img-hover-zoom {
+        transition: transform 0.3s ease;
+        /* Transición suave para el zoom */
+        cursor: pointer;
+    }
+
+    /* Efecto de zoom al pasar el ratón */
+    .img-hover-zoom:hover {
+        transform: scale(5);
+        /* Amplía la imagen al 150% */
+    }
+</style>
 <div class="producto row text-center mt-5">
     <!-- Columnas imágenes -->
     <div class="row col-6">
         <!-- Columna de miniaturas de imágenes -->
-         <div class="col-2"></div>
+        <div class="col-2"></div>
         <div class="col-2 d-flex flex-column" style="gap: 1px; height:40vh">
             @for ($i = 0; $i < 5; $i++)
                 @if (isset($producto->imagenes[$i]))
@@ -47,9 +64,24 @@
                     <p><b>Descuento:</b> {{ $producto->caracteristicas->descuento }}%</p>
                     @endif
                 </div>
+
+                <div class="col-6 mt-5">
+                    <div class="d-flex align-items-start">
+                        <div class="col-8 text-center d-flex flex-column justify-content-center align-items-center">
+                            <!-- Mostrar el botón solo si el usuario tiene un alquiler activo del producto -->
+                            @if ($alquilerActivo)
+                            <button type="button" class="btn btn-success mt-4" data-bs-toggle="modal" data-bs-target="#modalValoracion">
+                                Valorar Producto
+                            </button>
+                            @endif
+                        </div>
+                    </div>
+                </div>
             </div>
+
             <!-- Formulario para seleccionar la fecha y reservar -->
             <div class="col-8 text-center d-flex flex-column justify-content-center align-items-center">
+                @if(Auth::id() !== $producto->usuario->id) <!-- Comprobamos si el usuario autenticado no es el propietario -->
                 <form action="{{ route('productos.actualizarReserva', $producto) }}" method="POST">
                     @csrf
                     <div class="form-group mb-3">
@@ -71,7 +103,7 @@
                         <label title="text" for="star5"></label>
                         <input value="4" name="rate" id="star4" type="radio">
                         <label title="text" for="star4"></label>
-                        <input value="3" name="rate" id="star3" type="radio" checked="">
+                        <input value="3" name="rate" id="star3" type="radio" checked="true">
                         <label title="text" for="star3"></label>
                         <input value="2" name="rate" id="star2" type="radio">
                         <label title="text" for="star2"></label>
@@ -80,19 +112,124 @@
                     </div>
                 </div>
                 <p><b>Usuario: </b>{{ $producto->usuario->name }}</p>
+                @endif
             </div>
+
         </div>
     </div>
 </div>
 
+
+
+<!-- Modal para valoración del producto -->
+<div class="modal fade" id="modalValoracion" tabindex="-1" aria-labelledby="modalValoracionLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalValoracionLabel">Valorar Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('valoraciones.guardar') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="id_producto" value="{{ $producto->id }}">
+
+                    <!-- Campo para puntuación -->
+                    <div class="mb-3">
+                        <label for="puntuacion" class="form-label">Puntuación</label>
+                        <select class="form-select" name="puntuacion" id="puntuacion" required>
+                            <option value="5">5 - Excelente</option>
+                            <option value="4">4 - Muy Bueno</option>
+                            <option value="3">3 - Bueno</option>
+                            <option value="2">2 - Regular</option>
+                            <option value="1">1 - Malo</option>
+                        </select>
+                    </div>
+
+                    <!-- Campo para comentario -->
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Comentario</label>
+                        <textarea class="form-control" name="descripcion" id="descripcion" rows="3" placeholder="Escribe tu comentario" required></textarea>
+                    </div>
+
+                    <!-- Campo para imagen -->
+                    <div class="mb-3">
+                        <label for="ruta_imagen" class="form-label">Subir Foto</label>
+                        <input class="form-control" type="file" name="ruta_imagen" id="ruta_imagen" accept="image/*">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Enviar Valoración</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="col-12 p-5" style="font-size: 200%;">
     <p style="margin-left: 5vw;"><b>Descripción</b></p>
     <p style="font-size:0.5em;margin-left: 5vw;margin-right: 10vw;">{{ $producto->caracteristicas->descripcion }}</p>
 </div>
 
 </div>
+<div class="container mt-5">
+
+    <!-- Tu código existente de la vista -->
+
+    <!-- Tabla de valoraciones -->
+    @if ($valoraciones->isNotEmpty())
+    <h2 class="mt-4 text-center mb-5">Valoraciones</h2>
+    <table id="tablaValoraciones" class="display text-center" style="width:100%">
+        <thead>
+            <tr>
+                <th>Imagen</th>
+                <th>Comentario</th>
+                <th>Usuario</th>
+                <th>Puntuación</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($valoraciones as $valoracion)
+            <tr>
+                <td>
+                    @if ($valoracion->ruta_imagen)
+                    <img src="{{ asset('storage/' . $valoracion->ruta_imagen) }}" alt="Imagen de la valoración"
+                        class="img-thumbnail rounded img-hover-zoom" style="width: 50px; height: 50px; object-fit: cover;">
+                    @else
+                    Sin imagen
+                    @endif
+                </td>
+                <td>{{ $valoracion->descripcion }}</td>
+                <td>{{ $valoracion->usuario->name }}</td>
+                <td>{{ $valoracion->puntuacion }} / 5</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+    @endif
+</div>
 
 <script>
+    $(document).ready(function() {
+        $('#tablaValoraciones').DataTable({
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 de 0 de 0 registros",
+                "sInfoFiltered": "(filtrado de _MAX_ registros en total)",
+                "sSearch": "Buscar:",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sPrevious": "Anterior",
+                    "sNext": "Siguiente",
+                    "sLast": "Último"
+                }
+            },
+            "searching": false // Esto desactiva el campo de búsqueda
+        });
+    });
+
+
     // Función para cambiar la imagen principal cuando se hace clic en una miniatura
     function cambiarImagen(imagenNombre) {
         const imagenPrincipal = document.getElementById('imagenPrincipal');
@@ -204,9 +341,5 @@
         }
     });
 </script>
-
-
-
-
 
 @endsection

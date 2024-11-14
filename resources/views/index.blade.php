@@ -126,6 +126,10 @@
     </div>
     @endif
 </div>
+
+
+
+
 <div class="comofunciona-container mt-5">
     <section class="hero-section">
         <h1>Los beneficios de alquilar</h1>
