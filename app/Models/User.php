@@ -7,21 +7,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable{
     use HasFactory, Notifiable;
-    public function productos()
-    {
+    public function productos(){
         return $this->hasMany(Producto::class, 'id_usuario');
     }
 
-    public function alquileresComoArrendatario()
-    {
+    public function alquileresComoArrendatario(){
         return $this->hasMany(Alquiler::class, 'id_arrendatario');
     }
 
-    public function alquileresComoArrendador()
-    {
+    public function alquileresComoArrendador(){
         return $this->hasMany(Alquiler::class, 'id_arrendador');
     }
     public function valoracions(){

@@ -12,18 +12,16 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Alquiler;
 use App\Models\Valoracion;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
 
 
-class ProductoController extends Controller
-{
+
+class ProductoController extends Controller{
 
     /**
      * Devuelve la vista de productos ordenados
      * por novedades y por descuentos
      */
-    public function index()
-    {
+    public function index(){
 
         // Obtener productos ordenados por fecha
         $productosPorFecha = Producto::orderBy('created_at', 'desc')->get();
@@ -52,8 +50,7 @@ class ProductoController extends Controller
     /**
      * Devuelve la vista del formulario para dar de alta un producto.
      */
-    public function create()
-    {
+    public function create(){
         $categorias = Categoria::with('subcategorias')->get();
         $user_id = Auth::id();
         return view('productos.crear', compact('categorias', 'user_id'));
@@ -62,12 +59,18 @@ class ProductoController extends Controller
     /**
      * Almacenar productos en la bdd.
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
+        $request->merge([
+            'nombre'=> strip_tags($request->input('nombre')), 
+            'descuento'=> strip_tags($request->input('descuento')), 
+            'descripcion' => strip_tags($request->input('descripcion')), 
+        ]);
         // Crear el producto
         $producto = Producto::create($request->only('id_categoria', 'id_subcategoria', 'id_usuario', 'nombre', 'descripcion', 'precio_dia', 'precio_semana', 'precio_mes', 'disponible'));
         // Manejar las imágenes
         Caracteristica::create([
+            'descripcion'=> strip_tags($request->input('descripcionlarga')), 
+            
             'id_producto' => $producto->id,
             'novedad' => 1,
             'descuento' => $request->descuento,
@@ -86,6 +89,7 @@ class ProductoController extends Controller
 
                 // Crear el registro de la imagen en la base de datos
                 ImagenProducto::create([
+                    'nombre'=> strip_tags($request->input('nombre')), 
                     'ruta_imagen' => $ruta,
                     'nombre' => $nombreImagen,
                     'id_producto' => $producto->id
@@ -99,8 +103,7 @@ class ProductoController extends Controller
         return view('productos.usuario', compact('productosDelUsuario'));
     }
 
-    public function misproductos()
-    {
+    public function misproductos(){
         $user_id = Auth::id();
         // Obtener todos los productos del usuario logeado
         $productosDelUsuario = Producto::where('id_usuario', $user_id)->get();
@@ -129,8 +132,7 @@ class ProductoController extends Controller
     }
 
 
-    public function actualizar(Producto $producto)
-    {
+    public function actualizar(Producto $producto){
         // Obtener todas las categorías con sus subcategorías
         $categorias = Categoria::with('subcategorias')->get();
 
@@ -143,17 +145,23 @@ class ProductoController extends Controller
         return view('productos.actualizar', compact('producto', 'categorias', 'subcategorias'));
     }
 
-
-    public function show(Producto $producto)
-    {
+    public function show(Producto $producto){
         //
     }
 
     /**
      * Actualizar datos de un producto
      */
-    public function edit(Request $request)
-    {
+    public function edit(Request $request){
+        $request->merge([
+            'id_categoria' => strip_tags($request->input('id_categoria')), 
+            'id_subcategoria'=> strip_tags($request->input('id_subcategoria')), 
+            'precio_dia'=> strip_tags($request->input('precio_dia')), 
+            'descripcion' => strip_tags($request->input('descripcion')), 
+            'precio_semana'=> strip_tags($request->input('precio_semana')), 
+            'precio_mes'=> strip_tags($request->input('precio_mes')), 
+        
+        ]);
         $producto = Producto::find($request->id_producto);
         $producto->id_categoria = $request->id_categoria;
         $producto->id_subcategoria = $request->id_subcategoria;
@@ -164,6 +172,10 @@ class ProductoController extends Controller
         $producto->save();
 
         if ($producto->caracteristicas) {
+            $request->merge([
+            $producto->caracteristicas->descuent => strip_tags($request->input('descuento')), 
+            $producto->caracteristicas->descuento => strip_tags($request->input('descripcionlarga')),    
+            ]);
             $producto->caracteristicas->descuento = $request->descuento;
             $producto->caracteristicas->descripcion = $request->descripcionlarga;
             $producto->caracteristicas->save();
@@ -204,17 +216,13 @@ class ProductoController extends Controller
         return view('productos.usuario', compact('productosDelUsuario'));
     }
 
-
-
-    public function update(Request $request, Producto $producto)
-    {
+    public function update(Request $request, Producto $producto){
         //
     }
     /**
      * Ver un registro
      */
-    public function verproducto(Producto $producto)
-    {
+    public function verproducto(Producto $producto){
         // Obtener todas las reservas del producto
         $reservas = Alquiler::where('id_producto', $producto->id)->get();
 
@@ -256,8 +264,7 @@ class ProductoController extends Controller
     /**
      * Eliminar un registro
      */
-    public function destroy(Producto $producto)
-    {
+    public function destroy(Producto $producto){
         $producto->delete();
         $user_id = Auth::id();
         $productosDelUsuario = Producto::where('id_usuario', $user_id)->get();
@@ -265,9 +272,7 @@ class ProductoController extends Controller
         return view('productos.usuario', compact('productosDelUsuario'));
     }
 
-
-    public function novedades(Request $request)
-    {
+    public function novedades(Request $request){
 
         $productos = Producto::orderBy('created_at', 'desc')->paginate(10);
 
@@ -283,8 +288,7 @@ class ProductoController extends Controller
         return view('productos.novedades', compact('productos'));
     }
 
-    public function ofertas(Request $request)
-    {
+    public function ofertas(Request $request){
         // Filtrar productos con descuento en el campo 'descuento' y ordenarlos por descuento
         $productos = Producto::whereHas('caracteristicas', function ($query) {
             // Verificar que exista un descuento (se asume que el campo 'descuento' está en la tabla 'caracteristicas')
@@ -307,8 +311,7 @@ class ProductoController extends Controller
     }
 
 
-    public function valoraciones(Request $request)
-    {
+    public function valoraciones(Request $request){
 
         $productos = Producto::orderBy('valoracion_media', 'desc')->paginate(10);
 
@@ -324,8 +327,7 @@ class ProductoController extends Controller
         return view('productos.valoraciones', compact('productos'));
     }
 
-    public function mostrarFormularioReserva(Producto $producto)
-    {
+    public function mostrarFormularioReserva(Producto $producto){
         // Obtener todas las reservas futuras para el producto
         $reservas = Alquiler::where('id_producto', $producto->id)
             ->where('fecha_inicio', '>=', now())  // Solo reservas futuras
@@ -343,8 +345,7 @@ class ProductoController extends Controller
         ]);
     }
 
-    public function actualizarReserva(Request $request, Producto $producto)
-    {
+    public function actualizarReserva(Request $request, Producto $producto){
         $request->validate([
             'fecha_rango' => 'required|string',
         ]);
@@ -376,10 +377,7 @@ class ProductoController extends Controller
         return redirect()->route('productos.verproducto', $producto)->with('success', 'Reserva realizada con éxito');
     }
 
-    // app/Http/Controllers/ProductoController.php
-
-    public function obtenerAlquileres($productoId)
-    {
+    public function obtenerAlquileres($productoId){
         $producto = Producto::find($productoId);
 
         if ($producto) {
@@ -390,12 +388,10 @@ class ProductoController extends Controller
         return response()->json([], 404);
     }
 
-
-
-
-
-    public function buscar(Request $request)
-    {
+    public function buscar(Request $request){
+        $request->merge([
+            'query' => strip_tags($request->input('query')), 
+        ]);
         // Obtener la consulta de búsqueda
         $query = $request->input('query');
 
@@ -424,6 +420,4 @@ class ProductoController extends Controller
         return view('productos.buscar', compact('productos'));
     }
     
-    
-
 }

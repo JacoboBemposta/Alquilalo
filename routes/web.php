@@ -5,11 +5,13 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\SubcategoriaController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\ValoracionController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ItemController;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/contact', function() {
     return view('contact'); // Vista con el formulario de contacto
@@ -72,3 +74,7 @@ Route::delete('/alquileres/{id}/cancel', [AlquilerController::class, 'cancelar']
 Route::put('/alquileres/{id}', [AlquilerController::class, 'update'])->name('alquileres.update');
 
 Route::post('/valoraciones/guardar', [ValoracionController::class, 'guardar'])->name('valoraciones.guardar');
+
+Route::get('/publicar-oferta', [ItemController::class, 'index'])->name('ofertas.index'); // Ver listado
+Route::post('/publicar-oferta', [ItemController::class, 'store'])->name('ofertas.store'); // Crear nuevo item
+Route::delete('/items/{id}', [ItemController::class, 'destroy'])->name('items.destroy');

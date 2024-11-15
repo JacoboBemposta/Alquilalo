@@ -10,6 +10,11 @@ class ContactController extends Controller
 {
     public function sendContactEmail(Request $request)
     {
+        $request->merge([
+            'name' => strip_tags($request->input('name')), 
+            'email'=> strip_tags($request->input('email')), 
+            'message'=> strip_tags($request->input('message')), 
+        ]);
         // Validar los datos recibidos del formulario
         $request->validate([
             'name' => 'required',

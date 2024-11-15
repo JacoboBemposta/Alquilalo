@@ -52,6 +52,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="/productos/misproductos">Mis productos</a>
               </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('ofertas.index') }}">Solicitar Producto</a>
+              </li>
               @endauth
             </ul>
           </div>
@@ -126,7 +129,7 @@
         <div class="col-md-4">
           <h5>Soporte</h5>
           <ul class="list-unstyled">
-            <li><a href="#">Centro de ayuda</a></li>
+            <li><a href="{{ url('/general/contactanos') }}">Centro de ayuda</a></li>
             <li><a href="{{ url('/general/normas') }}">Normas de la comunidad</a></li>
             <li><a href="{{ url('/general/preguntas') }}">Preguntas frecuentes</a></li>
           </ul>

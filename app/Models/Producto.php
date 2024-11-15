@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Producto extends Model
-{
+class Producto extends Model{
     use HasFactory;
 
     
@@ -26,27 +25,22 @@ class Producto extends Model
     ];
 
 
-    public function usuario()
-    {
+    public function usuario(){
         return $this->belongsTo(User::class, 'id_usuario');
     }
 
-    public function alquileres()
-    {
+    public function alquileres(){
         return $this->hasMany(Alquiler::class, 'id_producto');
     }
 
-    public function subcategoria()
-    {
+    public function subcategoria(){
         return $this->belongsTo(Subcategoria::class, 'id_subcategoria');
     }
-    public function categoria()
-    {
+    public function categoria(){
         return $this->belongsTo(categoria::class, 'id_categoria');
     }
 
-    public function imagenes()
-    {
+    public function imagenes(){
         return $this->hasMany(ImagenProducto::class, 'id_producto');
     }
     public function valoracions(){

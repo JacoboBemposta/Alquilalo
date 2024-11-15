@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Favorito extends Model
-{
+class Favorito extends Model{
     use HasFactory;
     protected $table = 'favoritos';
 
@@ -16,12 +15,10 @@ class Favorito extends Model
     ];
 
 
-    public function usuario()
-    {
+    public function usuario(){
         return $this->belongsTo(User::class, 'id_usuario');
     }
-    public function producto()
-    {
+    public function producto(){
         return $this->belongsTo(Producto::class, 'id_producto');
     }
 }

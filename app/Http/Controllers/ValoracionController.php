@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Valoracion;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
 class ValoracionController extends Controller
@@ -67,6 +66,12 @@ class ValoracionController extends Controller
 
     public function guardar(Request $request)
     {
+        $request->merge([
+            'id_producto' => strip_tags($request->input('id_producto')), 
+            'puntuacion' => strip_tags($request->input('puntuacion')), 
+            'descripcion' => strip_tags($request->input('descripcion')), 
+            'ruta_imagen' => strip_tags($request->input('ruta_imagen')), 
+        ]);
         // Validar los datos de entrada
         $request->validate([
             'id_producto' => 'required|exists:productos,id',

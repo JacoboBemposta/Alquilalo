@@ -3,7 +3,7 @@
 @section('contenido')
 <link rel="stylesheet" href="/css/form-contact.css">
 <div class="contact-section" style="background-color: #f8f8f8; padding: 40px;">
-    <div class="container form-container">
+    <div class="container form-container contact-form">
         <h1 class="contact-title">Contáctanos</h1>
         <p class="contact-description ">Estamos aquí para ayudarte. Completa el formulario y nos pondremos en contacto contigo lo antes posible.</p>
 

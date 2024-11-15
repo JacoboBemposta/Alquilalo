@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Valoracion extends Model
-{
+class Valoracion extends Model{
     use HasFactory;
 
     protected $table = 'valoracions';
@@ -20,12 +19,10 @@ class Valoracion extends Model
     ];
 
 
-    public function usuario()
-    {
+    public function usuario(){
         return $this->belongsTo(User::class, 'id_usuario');
     }
-    public function producto()
-    {
+    public function producto(){
         return $this->belongsTo(Producto::class, 'id_producto');
     }
 }

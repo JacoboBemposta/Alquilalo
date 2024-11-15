@@ -6,61 +6,37 @@ use App\Models\Favorito;
 use App\Http\Requests\StoreFavoritoRequest;
 use App\Http\Requests\UpdateFavoritoRequest;
 
-class FavoritoController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
+class FavoritoController extends Controller{
+
+    public function index(){
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
+
+    public function create(){
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreFavoritoRequest $request)
-    {
+
+    public function store(StoreFavoritoRequest $request){
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Favorito $favorito)
-    {
+    public function show(Favorito $favorito){
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Favorito $favorito)
-    {
+
+    public function edit(Favorito $favorito){
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateFavoritoRequest $request, Favorito $favorito)
-    {
+
+    public function update(UpdateFavoritoRequest $request, Favorito $favorito){
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Favorito $favorito)
-    {
+    public function destroy(Favorito $favorito){
         //
     }
 }

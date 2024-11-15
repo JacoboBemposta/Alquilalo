@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alquiler;
-use App\Http\Requests\StoreAlquilerRequest;
-use App\Http\Requests\UpdateAlquilerRequest;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,8 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class AlquilerController extends Controller
 {
-    public function mostrarFormularioReserva(Producto $producto)
-    {
+    public function mostrarFormularioReserva(Producto $producto){
         // Obtener todas las reservas futuras del producto
         $reservas = Alquiler::where('id_producto', $producto->id)
             ->where('fecha_inicio', '>=', now())  // Solo reservas futuras
@@ -31,34 +28,22 @@ class AlquilerController extends Controller
             'fechas_reservadas' => $fechas_reservadas
         ]);
     }
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
+        
+        $request->merge([
+            'id_producto' => strip_tags($request->input('id_producto')), 
+            'fecha_inicio'=> strip_tags($request->input('fecha_inicio')), 
+            'fecha_fin'=> strip_tags($request->input('fecha_fin')), 
+            'precio_total'=> strip_tags($request->input('precio_total')),
+        ]);
         $request->validate([
             'id_producto' => 'required|integer|exists:productos,id',
             'fecha_inicio' => 'required|date',
             'fecha_fin' => 'required|date|after_or_equal:fecha_inicio',
             'precio_total' => 'required|numeric',
         ]);
-
+        
         // Obtener el producto y su arrendador
         $producto = Producto::findOrFail($request->id_producto);
         $arrendador_id = $producto->id_usuario; // Suponiendo que el campo 'id_usuario' en la tabla productos es el arrendador
@@ -83,13 +68,7 @@ class AlquilerController extends Controller
         return response()->json($alquiler, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Alquiler $alquiler)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -149,7 +128,11 @@ class AlquilerController extends Controller
      */
     public function update(Request $request, $id)
     {
- 
+        $request->merge([
+            'fecha_inicio' => strip_tags($request->input('fecha_inicio')), 
+            'fecha_fin'=> strip_tags($request->input('fecha_fin')), 
+            'precio_total'=> strip_tags($request->input('precio_total')), 
+        ]); 
         // Validación de los datos
         $request->validate([
             'fecha_inicio' => 'required|date|after_or_equal:today',
@@ -193,4 +176,18 @@ class AlquilerController extends Controller
             return redirect()->back()->with('error', 'Hubo un error al eliminar el alquiler');
         }
     }
+
+    public function show(Alquiler $alquiler){
+        //
+    }    
+
+    public function index(){
+        //
+    }
+
+    public function create(){
+        //
+    }
+
+
 }
