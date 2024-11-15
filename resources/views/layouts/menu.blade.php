@@ -24,8 +24,8 @@
 <body>
   <header>
     <div id="app">
-      <nav class="navbar navbar-expand-lg bg-body-tertiary ">
-        <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid mt-2">
           <a class="navbar-brand" href="#">
             <img src="/imagenes/logoverde2.png" alt="logo" class="logo-pequeno" style="width: 2vw; height: auto;">
           </a>

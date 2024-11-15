@@ -72,22 +72,22 @@
                         </div>
                     </td>
                     <td>
-                        <div class="row mt-5">
+                        <div class="d-flex justify-content-center align-items-center gap-2">
                             <form action="{{ route('productos.actualizar',$producto) }}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn">
-                                    <img src="{{ asset('imagenes/editar.jpg') }}" alt="Editar" style="width: 50px; height: 50px;">
+                                    <img src="{{ asset('imagenes/editar.jpeg') }}" alt="Editar" title="Editar" style="width: 25px; height: 25px;">
                                 </button>
                             </form>
                             <form action="{{ route('productos.eliminar', $producto) }}" method="POST" onsubmit="return confirmDelete();">
                                 @csrf
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button type="submit" class="btn">
-                                    <img src="{{ asset('imagenes/eliminar.png') }}" alt="Eliminar" style="width: 50px; height: 50px;">
+                                    <img src="{{ asset('imagenes/eliminar.jpeg') }}" alt="Eliminar" title="Eliminar" style="width: 25px; height: 25px;">
                                 </button>
                             </form>
                         </div>
-                    </td>
+                    </td>                 
                 </tr>
                 @endforeach
             </tbody>

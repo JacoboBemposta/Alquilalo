@@ -61,7 +61,7 @@ function loadMoreProducts(page) {
 
             // Si no hay más productos, muestra el mensaje de fin
             if (!data.next_page) {
-                document.getElementById('loading').innerHTML = '<h3>No hay más productos para mostrar.</h3>';
+                document.getElementById('loading').innerHTML = '<h2>No hay más productos para mostrar.</h2>';
             }
         }
 

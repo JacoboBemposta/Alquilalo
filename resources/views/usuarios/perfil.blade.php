@@ -56,7 +56,7 @@
                                 <!-- Botón de editar -->
                                 <form action="{{ route('alquileres.edit', ['id' => $alquiler->id, 'id_producto' => $alquiler->id_producto]) }}" method="GET" style="margin-right: 10px;">
                                     <button type="submit" class="btn" title="Editar">
-                                        <img src="{{ asset('imagenes/editar.jpg') }}" alt="Editar" style="width: 25px; height: 25px;">
+                                        <img src="{{ asset('imagenes/editar.jpeg') }}" alt="Editar" style="width: 25px; height: 25px;">
                                     </button>
                                 </form>
 
@@ -65,7 +65,7 @@
                                     @csrf
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button type="submit" class="btn" title="Eliminar">
-                                        <img src="{{ asset('imagenes/eliminar.png') }}" alt="Eliminar" style="width: 25px; height: 25px;">
+                                        <img src="{{ asset('imagenes/eliminar.jpeg') }}" alt="Eliminar" style="width: 25px; height: 25px;">
                                     </button>
                                 </form>
                             </div>

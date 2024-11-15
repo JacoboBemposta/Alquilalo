@@ -8,7 +8,7 @@
 
 </style>
 
-<div class="col-12 row justify-content-center">
+<div class="col-12 row justify-content-center" style="margin-top: 10vh">
     @if($productosPorFecha->isEmpty())
     <p>No hay productos que cumplan con los criterios.</p>
     @else
@@ -130,7 +130,7 @@
 
 
 
-<div class="comofunciona-container mt-5">
+<div class="comofunciona-container" style="margin-top: 25vh">
     <section class="hero-section">
         <h1>Los beneficios de alquilar</h1>
         <p>Comprar es cosa del pasado</p>
@@ -174,11 +174,11 @@
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <script>
     // Coordenadas de las tiendas
-    const tiendas = [{
-        nombre: "Alquilalo Pontevedra",
-        lat: 42.42925347525576,
-        lng: -8.641556452236378
-    }];
+    const tiendas = [
+        {nombre: "Alquilalo Pontevedra, \n C/Sagasta 26", lat: 42.42925347525576,lng: -8.641556452236378},
+        {nombre: "Alquilalo Pontevedra, \n Portugal", lat: 39.37029914672128,lng: -8.641556452236378},
+         
+    ];
 
     // Inicializamos el mapa
     const map = L.map('map').setView([40.416775, -3.703790], 6); // Centro en España

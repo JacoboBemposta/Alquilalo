@@ -39,7 +39,7 @@
 
     <div id="loading" class=" d-flex flex-column align-items-center justify-content-center" style="display: none;">
         <div class="loader">
-            <div class="bar1"></div>
+            {{-- <div class="bar1"></div>
             <div class="bar2"></div>
             <div class="bar3"></div>
             <div class="bar4"></div>
@@ -50,7 +50,7 @@
             <div class="bar9"></div>
             <div class="bar10"></div>
             <div class="bar11"></div>
-            <div class="bar12"></div>
+            <div class="bar12"></div> --}}
         </div>
     </div>
 </div>

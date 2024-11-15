@@ -50,7 +50,7 @@ function loadMoreProducts(page) {
             asignarValoraciones();
 
             if (!data.next_page) {
-                document.getElementById('loading').innerHTML = '<p>No hay más productos para mostrar.</p>';
+                document.getElementById('loading').innerHTML = '<h2>No hay más productos para mostrar.</h2>';
             }
         }
         loading = false;
