@@ -63,6 +63,7 @@
                     @if ($producto->caracteristicas->descuento)
                     <p><b>Descuento:</b> {{ $producto->caracteristicas->descuento }}%</p>
                     @endif
+                    <p><b>Fianza:</b> {{ $producto->fianza }}</p>
                 </div>
 
                 <div class="col-6 mt-5">
@@ -89,8 +90,8 @@
                     </div>
 
                     <!-- Contenedor para mostrar el precio total -->
-                    <div id="precioTotal" style="font-weight: bold; margin-bottom: 1rem;">Precio Total: 0.00 €</div>
-
+                    <div id="precioTotal" style="font-weight: bold; margin-bottom: 1rem;">Precio con seguro: 0.00 €</div>
+                    <div id="precioconfianza" style="font-weight: bold; margin-bottom: 1rem;">Precio con fianza: 0.00 €</div>
                     <!-- Campo oculto para enviar el precio total calculado -->
                     <input type="hidden" name="precio_total" id="precio_total">
 
@@ -293,18 +294,29 @@
 
     // Actualizar el precio cuando se selecciona un rango de fechas
     function actualizarPrecioTotal(selectedDates) {
-        if (selectedDates.length === 2) { // Solo calcular si hay dos fechas
-            const fechaInicio = selectedDates[0];
-            const fechaFin = selectedDates[1];
-            const precioTotal = calcularPrecioTotal(fechaInicio, fechaFin);
+    if (selectedDates.length === 2) { // Solo calcular si hay dos fechas
+        const fechaInicio = selectedDates[0];
+        const fechaFin = selectedDates[1];
+        const precio = calcularPrecioTotal(fechaInicio, fechaFin); // Calcula el precio total como string
+        const precioNum = parseFloat(precio); // Convierte el precio a número
 
-            // Mostrar el precio calculado en el div de precioTotal
-            document.getElementById("precioTotal").textContent = `Precio Total: ${precioTotal} €`;
+        if (isNaN(precioNum)) {
+            console.error("El precio calculado no es un número válido.");
+        } else {
+            const precioConSeguro = precioNum + (precioNum * 0.10); // Calcular el precio total con seguro
+            const fianza = @json($producto->fianza); // Obtener el valor de la fianza desde Laravel
+            const precioConFianza = precioConSeguro + parseFloat(fianza); // Calcular precio total con fianza
+
+            // Actualizar los divs con el precio calculado
+            document.getElementById("precioTotal").textContent = `Precio con seguro: ${precioConSeguro.toFixed(2)} €`;
+            document.getElementById("precioconfianza").textContent = `Precio con fianza: ${precioConFianza.toFixed(2)} €`;
 
             // Establecer el valor en el campo oculto para enviarlo en el formulario
-            document.getElementById("precio_total").value = precioTotal;
+            document.getElementById("precio_total").value = precioConSeguro.toFixed(2);
         }
     }
+}
+
 
     // Array con las fechas reservadas
     var fechasReservadas = @json($fechas_reservadas);

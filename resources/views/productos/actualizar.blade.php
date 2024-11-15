@@ -57,6 +57,10 @@
                         <label for="preciomes">Precio por mes</label>
                         <input type="number" name="precio_mes" id="preciomes" class="form-control mx-auto" value="{{$producto->precio_mes}}"style="max-width: 300px;" required>
                     </div>
+                    <div class="form-group text-center">
+                        <label for="fianza">Fianza </label>
+                        <input type="number" name="fianza" id="fianza" class="form-control mx-auto" value="{{$producto->fianza}}"min="0" step="0.01" style="max-width: 300px;" required>
+                    </div>
                 </div>
                 <div class="col-6 text-center">
                     <h3>Características</h3>

@@ -8,8 +8,8 @@
     <h2 class="faq-question">1. Identificación del Titular</h2>
     <p class="faq-answer">El presente aviso legal regula el acceso y la utilización del sitio web de la empresa Alquilalo.</p>
     <p class="faq-answer">Nombre de la empresa: Alquilalo</p>
-    <p class="faq-answer">NIF: [NIF de la empresa]</p>
-    <p class="faq-answer">Dirección: [Dirección completa de la empresa]</p>
+    <p class="faq-answer">NIF: 44083155K</p>
+    <p class="faq-answer">Dirección: Sagasta 24</p>
     <p class="faq-answer">Correo electrónico: <a href="mailto:contacto@alquilalo.com">contacto@alquilalo.com</a></p>
     
     <h2 class="faq-question">2. Objeto</h2>
@@ -28,6 +28,6 @@
     <p class="faq-answer">Alquilalo se reserva el derecho a modificar este aviso legal en cualquier momento, por lo que se recomienda revisarlo periódicamente.</p>
 
     <h2 class="faq-question">7. Ley Aplicable y Jurisdicción</h2>
-    <p class="faq-answer">El presente aviso legal se rige por la legislación española. Cualquier controversia derivada de la utilización del sitio web se someterá a la jurisdicción de los juzgados y tribunales de [Ciudad donde se ubica la empresa].</p>
+    <p class="faq-answer">El presente aviso legal se rige por la legislación española. Cualquier controversia derivada de la utilización del sitio web se someterá a la jurisdicción de los juzgados y tribunales de Pontevedra.</p>
 </div>
 @endsection

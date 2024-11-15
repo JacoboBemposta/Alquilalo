@@ -21,7 +21,7 @@ class Producto extends Model{
         'precio_semana',
         'precio_mes',
         'disponible',
-        'valoracion_media',
+        'fianza', // Nuevo campo
     ];
 
 

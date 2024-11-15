@@ -45,7 +45,7 @@
                 <div class="faq-question">
                     <h4>¿Qué puedo hacer si no encuentro lo que busco?</h4>
                     <div class="faq-answer">
-                        <p>Si necesitas algo que no está publicado en la plataforma, puedes solicitarlo publicando una búsqueda en directo. Funciona como un tablón de anuncios donde describes brevemente el artículo buscado e incluso puedes adjuntar una foto, como referencia.</p>
+                        <p>Si necesitas algo que no está publicado en la plataforma, puedes solicitarlo publicando una búsqueda en nuestra sección "Solicitar Producto". Funciona como un tablón de anuncios donde describes brevemente el artículo buscado.Podrás eliminar tus publicaciones cuando quieres o deshabilitarlas pasado 1 mes.</p>
                     </div>
                 </div>
                 <div class="faq-question">
@@ -58,7 +58,9 @@
                 <div class="faq-question">
                     <h4>¿Cuánto cuesta alquilar en Alquilalo?</h4>
                     <div class="faq-answer">
-                        <p>Cuando pides un artículo puedes ver desglosado lo que pide el dueño del artículo, y otros gastos si los hay (por ejemplo: transporte, seguro…).</p>
+                        <p>En Alquilalo, nuestro modelo de precios es sencillo y transparente. Por cada alquiler, cobramos una comisión del <strong>15% del total del alquiler</strong> (sin incluir la fianza) que se destina a cubrir los gastos de gestión de la plataforma.</p>
+                        <p>Es importante tener en cuenta que este porcentaje se aplica solo al precio del alquiler, no a la fianza, que se paga de manera separada para garantizar el buen uso del producto alquilado.</p>
+                        <p>Además, los arrendadores tienen la tranquilidad de saber que nuestro sistema de gestión ayuda a facilitar todo el proceso de alquiler de forma segura y eficiente.</p>
                     </div>
                 </div>
                 <div class="faq-question">
@@ -82,13 +84,7 @@
                 <div class="faq-question">
                     <h4>¿Quién se encarga del transporte, el dueño del artículo o la persona que lo solicita?</h4>
                     <div class="faq-answer">
-                        <p>Podéis usar el chat para acordar el lugar y forma de entrega del artículo. Próximamente también tendremos servicio de transporte en muchas ciudades.</p>
-                    </div>
-                </div>
-                <div class="faq-question">
-                    <h4>¿Cómo entrego o recojo los artículos?</h4>
-                    <div class="faq-answer">
-                        <p>Elige el artículo que vas a entregar o recoger en “mis alquileres” y pulsa en “Iniciar proceso de entrega”. La app te guía para que le hagas fotos al artículo y al momento de la entrega: estas fotos son privadas, pero se conservan junto con su geolocalización para la resolución de disputas. Asegúrate de que muestran el estado del artículo.</p>
+                        <p>El arrendador debe llevar el producto antes del inicio del alquiler a nuestra sede donde lo recogerá el arrendatario. Se procederá de la misma forma para la devolución del artículo. Próximamente también tendremos servicio de transporte en muchas ciudades.</p>
                     </div>
                 </div>
                 <div class="faq-question">
@@ -109,6 +105,12 @@
                         <p>Además del cobro de la fianza. Conforme a la legislación, actuaríamos como intermediarios y facilitaríamos los datos del arrendatario a la policía para interponer una denuncia.</p>
                     </div>
                 </div>
+                <div class="faq-question">
+                    <h4>¿Cómo funciona el sistema de fianzas y seguro?</h4>
+                    <div class="faq-answer">
+                        <p>Alquílalo trabaja conjuntamente con una empresa de seguros. El arrendador decide si poner o no una fianza. Se aplica, por norma general, un incremento del 10% para el seguro.</p>
+                    </div>
+                </div>                
             </section>
         </div>  
     </div>

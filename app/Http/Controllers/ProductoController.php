@@ -59,49 +59,70 @@ class ProductoController extends Controller{
     /**
      * Almacenar productos en la bdd.
      */
-    public function store(Request $request){
-        $request->merge([
-            'nombre'=> strip_tags($request->input('nombre')), 
-            'descuento'=> strip_tags($request->input('descuento')), 
-            'descripcion' => strip_tags($request->input('descripcion')), 
-        ]);
-        // Crear el producto
-        $producto = Producto::create($request->only('id_categoria', 'id_subcategoria', 'id_usuario', 'nombre', 'descripcion', 'precio_dia', 'precio_semana', 'precio_mes', 'disponible'));
-        // Manejar las imágenes
-        Caracteristica::create([
-            'descripcion'=> strip_tags($request->input('descripcionlarga')), 
-            
-            'id_producto' => $producto->id,
-            'novedad' => 1,
-            'descuento' => $request->descuento,
-            'descripcion' => $request->descripcionlarga,
-        ]);
-        if ($request->hasFile('imagenes')) {
-            foreach ($request->file('imagenes') as $imagen) {
-                // Obtener la extensión de la imagen
-                $extension = $imagen->getClientOriginalExtension();
+public function store(Request $request){
+    // Limpia las entradas
+    $request->merge([
+        'nombre' => strip_tags($request->input('nombre')),
+        'descuento' => strip_tags($request->input('descuento')),
+        'descripcion' => strip_tags($request->input('descripcion')),
+        'fianza' => 0,  // Añadimos el campo fianza con valor predeterminado de 0
+    ]);
+    // Validar los datos de entrada
+    $validated = $request->validate([
+        'id_categoria' => 'required|integer',
+        'id_subcategoria' => 'required|integer',
+        'id_usuario' => 'required|integer',
+        'nombre' => 'required|string|max:255',
+        'descripcion' => 'nullable|string',
+        'precio_dia' => 'required|numeric|min:0',
+        'precio_semana' => 'required|numeric|min:0',
+        'precio_mes' => 'required|numeric|min:0',
+        'fianza' => 'nullable|numeric|min:0', // Validar campo fianza
+        'imagenes.*' => 'nullable|image|max:2048',
+    ]);
+    
+    // Establecer valores por defecto
+    $validated['fianza'] = $validated['fianza'] ?? 0;    
 
-                // Generar un nombre único para la imagen
-                $nombreImagen = $imagen->getClientOriginalName();
+    // Crear el producto con los datos del request
+    $producto = Producto::create($request->only('id_categoria', 'id_subcategoria', 'id_usuario', 'nombre', 'descripcion', 'precio_dia', 'precio_semana', 'precio_mes', 'disponible', 'fianza'));
 
-                // Almacenar la imagen en la carpeta correspondiente
-                $ruta = $imagen->storeAs('productos/' . $producto->id, $nombreImagen, 'public');
+    // Manejar las características del producto
+    Caracteristica::create([
+        'descripcion' => strip_tags($request->input('descripcionlarga')),
+        'id_producto' => $producto->id,
+        'novedad' => 1,
+        'descuento' => $request->descuento,
+        'descripcion' => $request->descripcionlarga,
+    ]);
 
-                // Crear el registro de la imagen en la base de datos
-                ImagenProducto::create([
-                    'nombre'=> strip_tags($request->input('nombre')), 
-                    'ruta_imagen' => $ruta,
-                    'nombre' => $nombreImagen,
-                    'id_producto' => $producto->id
-                ]);
-            }
+    // Manejar las imágenes
+    if ($request->hasFile('imagenes')) {
+        foreach ($request->file('imagenes') as $imagen) {
+            // Obtener la extensión de la imagen
+            $extension = $imagen->getClientOriginalExtension();
+            // Generar un nombre único para la imagen
+            $nombreImagen = $imagen->getClientOriginalName();
+            // Almacenar la imagen en la carpeta correspondiente
+            $ruta = $imagen->storeAs('productos/' . $producto->id, $nombreImagen, 'public');
+            // Crear el registro de la imagen en la base de datos
+            ImagenProducto::create([
+                'nombre' => strip_tags($request->input('nombre')),
+                'ruta_imagen' => $ruta,
+                'nombre' => $nombreImagen,
+                'id_producto' => $producto->id
+            ]);
         }
-        $user_id = Auth::id();
-        // Obtener todos los productos del usuario logeado
-        $productosDelUsuario = Producto::where('id_usuario', $user_id)->get();
-
-        return view('productos.usuario', compact('productosDelUsuario'));
     }
+
+    // Obtener todos los productos del usuario logeado
+    $user_id = Auth::id();
+    $productosDelUsuario = Producto::where('id_usuario', $user_id)->get();
+
+    // Retornar la vista de los productos del usuario
+    return view('productos.usuario', compact('productosDelUsuario'));
+}
+
 
     public function misproductos(){
         $user_id = Auth::id();
@@ -152,16 +173,20 @@ class ProductoController extends Controller{
     /**
      * Actualizar datos de un producto
      */
-    public function edit(Request $request){
+    public function edit(Request $request)
+    {
+        // Sanear los inputs del request
         $request->merge([
-            'id_categoria' => strip_tags($request->input('id_categoria')), 
-            'id_subcategoria'=> strip_tags($request->input('id_subcategoria')), 
-            'precio_dia'=> strip_tags($request->input('precio_dia')), 
-            'descripcion' => strip_tags($request->input('descripcion')), 
-            'precio_semana'=> strip_tags($request->input('precio_semana')), 
-            'precio_mes'=> strip_tags($request->input('precio_mes')), 
-        
+            'id_categoria' => strip_tags($request->input('id_categoria')),
+            'id_subcategoria' => strip_tags($request->input('id_subcategoria')),
+            'precio_dia' => strip_tags($request->input('precio_dia')),
+            'descripcion' => strip_tags($request->input('descripcion')),
+            'precio_semana' => strip_tags($request->input('precio_semana')),
+            'precio_mes' => strip_tags($request->input('precio_mes')),
+            'fianza' => strip_tags($request->input('fianza')), // Nuevo campo para la fianza
         ]);
+    
+        // Encontrar el producto por su ID
         $producto = Producto::find($request->id_producto);
         $producto->id_categoria = $request->id_categoria;
         $producto->id_subcategoria = $request->id_subcategoria;
@@ -169,37 +194,40 @@ class ProductoController extends Controller{
         $producto->precio_dia = $request->precio_dia;
         $producto->precio_semana = $request->precio_semana;
         $producto->precio_mes = $request->precio_mes;
+        $producto->fianza = $request->fianza; // Asignar la fianza al producto
         $producto->save();
-
+    
+        // Manejar las características del producto, si existen
         if ($producto->caracteristicas) {
             $request->merge([
-            $producto->caracteristicas->descuent => strip_tags($request->input('descuento')), 
-            $producto->caracteristicas->descuento => strip_tags($request->input('descripcionlarga')),    
+                'descuento' => strip_tags($request->input('descuento')),
+                'descripcionlarga' => strip_tags($request->input('descripcionlarga')),
             ]);
+    
             $producto->caracteristicas->descuento = $request->descuento;
             $producto->caracteristicas->descripcion = $request->descripcionlarga;
             $producto->caracteristicas->save();
         }
-
+    
         // Verificar si hay imágenes nuevas en la solicitud
         if ($request->hasFile('imagenes')) {
-            // Eliminar las imágenes previas solo si se suben nuevas imágenes
+            // Eliminar las imágenes previas si se suben nuevas imágenes
             $imagenesPrevias = ImagenProducto::where('id_producto', $producto->id)->get();
             foreach ($imagenesPrevias as $imagenPrevia) {
                 Storage::disk('public')->delete($imagenPrevia->ruta_imagen);
                 $imagenPrevia->delete();
             }
-
+    
             foreach ($request->file('imagenes') as $imagen) {
                 // Obtener la extensión de la imagen
                 $extension = $imagen->getClientOriginalExtension();
-
+    
                 // Generar un nombre único para la imagen
                 $nombreImagen = $imagen->getClientOriginalName();
-
+    
                 // Almacenar la imagen en la carpeta correspondiente
                 $ruta = $imagen->storeAs('productos/' . $producto->id, $nombreImagen, 'public');
-
+    
                 // Crear el registro de la imagen en la base de datos
                 ImagenProducto::create([
                     'ruta_imagen' => $ruta,
@@ -208,14 +236,14 @@ class ProductoController extends Controller{
                 ]);
             }
         }
-
-        $user_id = Auth::id();
+    
         // Obtener todos los productos del usuario logeado
+        $user_id = Auth::id();
         $productosDelUsuario = Producto::where('id_usuario', $user_id)->get();
-
+    
         return view('productos.usuario', compact('productosDelUsuario'));
     }
-
+    
     public function update(Request $request, Producto $producto){
         //
     }

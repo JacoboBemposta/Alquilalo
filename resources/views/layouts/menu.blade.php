@@ -39,12 +39,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="/categorias">Categorias</a>
               </li>
-              </li>
-              <a class="nav-link" href="{{ route('productos.novedades') }}">Novedades</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('productos.ofertas') }}">Ofertas</a>
-              </li>
+
               @auth
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('productos.create') }}">Subir Producto</a>
