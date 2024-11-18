@@ -9,7 +9,7 @@
     <p class="faq-answer">En Alquilalo, creemos que el acceso a productos y servicios no debería estar limitado por la compra. Por eso, proporcionamos un espacio donde las personas pueden alquilar todo tipo de artículos, desde herramientas y equipo deportivo hasta muebles y vehículos. Actuamos como intermediarios, garantizando transacciones seguras y confiables.</p>
 
     <h2 class="faq-question">Cómo Funciona</h2>
-    <ol>
+    <ol class="faq-answer">
         <li><strong>Registro:</strong> Crea una cuenta de forma rápida y sencilla.</li>
         <li><strong>Ofrece tus artículos:</strong> Publica tus artículos para alquilar, estableciendo tus propias condiciones y precios.</li>
         <li><strong>Busca lo que necesitas:</strong> Explora nuestra amplia variedad de artículos disponibles para alquiler.</li>
