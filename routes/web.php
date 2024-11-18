@@ -78,3 +78,7 @@ Route::post('/valoraciones/guardar', [ValoracionController::class, 'guardar'])->
 Route::get('/publicar-oferta', [ItemController::class, 'index'])->name('ofertas.index'); // Ver listado
 Route::post('/publicar-oferta', [ItemController::class, 'store'])->name('ofertas.store'); // Crear nuevo item
 Route::delete('/items/{id}', [ItemController::class, 'destroy'])->name('items.destroy');
+
+Route::get('/presentacion', function () {
+    return view('general.presentacion');
+});

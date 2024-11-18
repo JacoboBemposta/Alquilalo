@@ -39,7 +39,11 @@
               <li class="nav-item">
                 <a class="nav-link" href="/categorias">Categorias</a>
               </li>
-
+              @guest
+                <li class="nav-item">
+                    <a class="nav-link" href="/presentacion">Presentación</a>
+                </li>
+              @endguest
               @auth
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('productos.create') }}">Subir Producto</a>

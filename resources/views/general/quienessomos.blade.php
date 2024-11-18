@@ -3,7 +3,7 @@
 @section('contenido')
 <div class="container col-8 form-container">
     <h1 class="faq-question">Quiénes Somos</h1>
-    <p class="faq-answer"><strong>Alquilalo</strong> es una plataforma innovadora que facilita el alquiler de artículos entre particulares y profesionales. Nuestra misión es conectar a quienes ofrecen algo con aquellos que buscan un artículo específico para alquilar, creando una comunidad basada en la confianza y la accesibilidad.</p>
+    <p class="faq-answer"><strong>Alquílalo</strong> es una plataforma innovadora que facilita el alquiler de artículos entre particulares. Nuestra misión es conectar a quienes ofrecen algo con aquellos que buscan un artículo específico para alquilar, creando una comunidad basada en la confianza y la accesibilidad.</p>
 
     <h2 class="faq-question">Nuestra Misión</h2>
     <p class="faq-answer">En Alquilalo, creemos que el acceso a productos y servicios no debería estar limitado por la compra. Por eso, proporcionamos un espacio donde las personas pueden alquilar todo tipo de artículos, desde herramientas y equipo deportivo hasta muebles y vehículos. Actuamos como intermediarios, garantizando transacciones seguras y confiables.</p>

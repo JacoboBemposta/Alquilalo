@@ -54,7 +54,7 @@
                             @if($fecha_inicio->isFuture() && $fecha_inicio->gt($fecha_limite))
                             <div style="display: flex; align-items: center;">
                                 <!-- Botón de editar -->
-                                <form action="{{ route('alquileres.edit', ['id' => $alquiler->id, 'id_producto' => $alquiler->id_producto]) }}" method="GET" style="margin-right: 10px;">
+                                <form action="{{ route('alquileres.edit', ['id' => $alquiler->id, 'id_producto' => $alquiler->id_producto]) }}" method="GET" >
                                     <button type="submit" class="btn" title="Editar">
                                         <img src="{{ asset('imagenes/editar.jpeg') }}" alt="Editar" style="width: 25px; height: 25px;">
                                     </button>

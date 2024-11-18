@@ -45,7 +45,7 @@
                 <div class="faq-question">
                     <h4>¿Qué puedo hacer si no encuentro lo que busco?</h4>
                     <div class="faq-answer">
-                        <p>Si necesitas algo que no está publicado en la plataforma, puedes solicitarlo publicando una búsqueda en nuestra sección "Solicitar Producto". Funciona como un tablón de anuncios donde describes brevemente el artículo buscado.Podrás eliminar tus publicaciones cuando quieres o deshabilitarlas pasado 1 mes.</p>
+                        <p>Si necesitas algo que no está publicado en la plataforma, puedes solicitarlo publicando una búsqueda en nuestra sección "Solicitar Producto". Funciona como un tablón de anuncios donde describes brevemente el artículo buscado.Podrás eliminar tus publicaciones cuando quieras o deshabilitarlas pasado 1 mes.</p>
                     </div>
                 </div>
                 <div class="faq-question">
@@ -58,7 +58,7 @@
                 <div class="faq-question">
                     <h4>¿Cuánto cuesta alquilar en Alquilalo?</h4>
                     <div class="faq-answer">
-                        <p>En Alquilalo, nuestro modelo de precios es sencillo y transparente. Por cada alquiler, cobramos una comisión del <strong>15% del total del alquiler</strong> (sin incluir la fianza) que se destina a cubrir los gastos de gestión de la plataforma.</p>
+                        <p>En Alquilalo, nuestro modelo de precios es sencillo y transparente. Por cada alquiler, cobramos una comisión del <strong>5% del total del alquiler</strong>, que se destina a cubrir los gastos de gestión de la plataforma.</p>
                         <p>Es importante tener en cuenta que este porcentaje se aplica solo al precio del alquiler, no a la fianza, que se paga de manera separada para garantizar el buen uso del producto alquilado.</p>
                         <p>Además, los arrendadores tienen la tranquilidad de saber que nuestro sistema de gestión ayuda a facilitar todo el proceso de alquiler de forma segura y eficiente.</p>
                     </div>
@@ -84,7 +84,9 @@
                 <div class="faq-question">
                     <h4>¿Quién se encarga del transporte, el dueño del artículo o la persona que lo solicita?</h4>
                     <div class="faq-answer">
-                        <p>El arrendador debe llevar el producto antes del inicio del alquiler a nuestra sede donde lo recogerá el arrendatario. Se procederá de la misma forma para la devolución del artículo. Próximamente también tendremos servicio de transporte en muchas ciudades.</p>
+                        <p>El arrendador debe llevar el producto antes del inicio del alquiler a nuestra sede donde lo recogerá el arrendatario. Se procederá de la misma forma para la devolución del artículo.</p>
+                        <p>Próximamente también tendremos servicio de transporte.</p>
+
                     </div>
                 </div>
                 <div class="faq-question">
