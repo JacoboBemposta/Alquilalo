@@ -16,6 +16,8 @@ class Alquiler extends Model{
         'fecha_inicio',
         'fecha_fin',
         'precio_total',
+        'fianza',
+        'transaction_id',
         'is_range',
     ];
     protected $dates = ['fecha_inicio', 'fecha_fin'];

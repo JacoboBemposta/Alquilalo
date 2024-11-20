@@ -20,13 +20,8 @@
 
 <div class="iframe">
     <iframe 
-        src="https://docs.google.com/presentation/d/e/2PACX-1vQLwSooHHmzeHIwrtSLuO6s2XC1SdZCtlZkEuFv9qqqEFP5U48KfdM--R0sZKC5ciPFQWTHrJ1UyjOL/embed?start=false&loop=false&delayms=3000" 
-        frameborder="0" 
-        width="960" 
-        height="569" 
-        allowfullscreen="true" 
-        mozallowfullscreen="true" 
-        webkitallowfullscreen="true">
+        src="https://docs.google.com/presentation/d/e/2PACX-1vQXCsi958RN9FKxMMSH6MONcd8r8nks5zeVeApG8sv4sAWNRBCC_pF72Ld4M3vwClzcrCNTNa-VfgzC/embed?start=false&loop=false&delayms=3000" 
+        frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true">
     </iframe>
 </div>
 

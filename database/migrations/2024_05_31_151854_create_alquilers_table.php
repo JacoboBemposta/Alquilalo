@@ -20,8 +20,9 @@ return new class extends Migration
             $table->date('fecha_fin')->nullable();
             $table->boolean('is_range')->default(false);
             $table->decimal('precio_total', 8, 2)->nullable(); 
+            $table->decimal('fianza', 10, 2)->default(0);
+            $table->string('transaction_id')->nullable();
             $table->timestamps();
-
             $table->foreign('id_producto')->references('id')->on('productos')->onDelete('cascade');
             $table->foreign('id_arrendador')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('id_arrendatario')->references('id')->on('users')->onDelete('cascade');

@@ -5,6 +5,11 @@
 
 <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://www.sandbox.paypal.com/sdk/js?client-id={{ $paypalClientId }}&currency=EUR"></script>
+
+
+
+
 <style>
     .dataTables_wrapper .dataTables_paginate {
         margin-top: 50px;
@@ -21,6 +26,28 @@
     .img-hover-zoom:hover {
         transform: scale(5);
         /* Amplía la imagen al 150% */
+    }
+
+    #paypal-button-container {
+        display: none;
+        /* Oculto por defecto */
+        margin-top: 10px;
+        /* Espacio entre el botón "Valorar Producto" y el botón de PayPal */
+        width: 100%;
+        /* Asegura que el div ocupe todo el ancho disponible */
+        max-width: 400px;
+        /* Limita el tamaño máximo a 400px */
+        padding: 20px;
+        /* Agrega algo de padding */
+        background-color: white;
+        /* Fondo blanco */
+        border-radius: 8px;
+        /* Bordes redondeados */
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        /* Agrega sombra para darle profundidad */
+        margin-left: auto;
+        margin-right: auto;
+        /* Centra el div horizontalmente */
     }
 </style>
 <div class="producto row text-center mt-5">
@@ -94,8 +121,8 @@
                     <div id="precioconfianza" style="font-weight: bold; margin-bottom: 1rem;">Precio con fianza: 0.00 €</div>
                     <!-- Campo oculto para enviar el precio total calculado -->
                     <input type="hidden" name="precio_total" id="precio_total">
-
-                    <button type="submit" class="btn btn-secondary">Alquilalo</button>
+                    <input type="hidden" id="fianza" name="fianza" value="{{ $producto->fianza }}">
+                    <button type="submit" class="btn btn-secondary" style="display: none;">Alquilalo</button>
                 </form>
                 <div class="mt-1">
                     <p>Valoraciones:</p>
@@ -119,6 +146,12 @@
         </div>
     </div>
 </div>
+
+<!-- BOTON PAYPAL -->
+
+<div id="paypal-button-container" style="display: none;"></div>
+
+
 
 
 
@@ -165,6 +198,9 @@
         </div>
     </div>
 </div>
+
+
+
 <div class="col-12 p-5" style="font-size: 200%;">
     <p style="margin-left: 5vw;"><b>Descripción</b></p>
     <p style="font-size:0.5em;margin-left: 5vw;margin-right: 10vw;">{{ $producto->caracteristicas->descripcion }}</p>
@@ -255,7 +291,6 @@
     const precioMes = @json($producto -> precio_mes);
     const descuento = @json($producto -> caracteristicas -> descuento ?? 0);
 
-    // Función para calcular el precio total
     function calcularPrecioTotal(fechaInicio, fechaFin) {
         const diasReserva = Math.ceil((fechaFin - fechaInicio) / (1000 * 60 * 60 * 24)) + 1; // Días de reserva
 
@@ -291,33 +326,143 @@
         return precioTotal.toFixed(2); // Retornar con dos decimales
     }
 
-
-    // Actualizar el precio cuando se selecciona un rango de fechas
     function actualizarPrecioTotal(selectedDates) {
-    if (selectedDates.length === 2) { // Solo calcular si hay dos fechas
-        const fechaInicio = selectedDates[0];
-        const fechaFin = selectedDates[1];
-        const precio = calcularPrecioTotal(fechaInicio, fechaFin); // Calcula el precio total como string
-        const precioNum = parseFloat(precio); // Convierte el precio a número
+        if (selectedDates.length === 2) { // Solo calcular si hay dos fechas
+            const fechaInicio = selectedDates[0];
+            const fechaFin = selectedDates[1];
+            const precio = calcularPrecioTotal(fechaInicio, fechaFin); // Calcula el precio total como string
+            const precioNum = parseFloat(precio); // Convierte el precio a número
 
-        if (isNaN(precioNum)) {
-            console.error("El precio calculado no es un número válido.");
-        } else {
-            const precioConSeguro = precioNum + (precioNum * 0.10); // Calcular el precio total con seguro
-            const fianza = @json($producto->fianza); // Obtener el valor de la fianza desde Laravel
-            const precioConFianza = precioConSeguro + parseFloat(fianza); // Calcular precio total con fianza
+            if (isNaN(precioNum)) {
+                console.error("El precio calculado no es un número válido.");
+            } else {
+                const precioConSeguro = precioNum + (precioNum * 0.10); // Calcular el precio total con seguro
+                const fianza = @json($producto -> fianza); // Obtener el valor de la fianza desde Laravel
+                const precioConFianza = precioConSeguro + parseFloat(fianza); // Calcular precio total con fianza
 
-            // Actualizar los divs con el precio calculado
-            document.getElementById("precioTotal").textContent = `Precio con seguro: ${precioConSeguro.toFixed(2)} €`;
-            document.getElementById("precioconfianza").textContent = `Precio con fianza: ${precioConFianza.toFixed(2)} €`;
+                // Actualizar los divs con el precio calculado
+                document.getElementById("precioTotal").textContent = `Precio con seguro: ${precioConSeguro.toFixed(2)} €`;
+                document.getElementById("precioconfianza").textContent = `Precio con fianza: ${precioConFianza.toFixed(2)} €`;
 
-            // Establecer el valor en el campo oculto para enviarlo en el formulario
-            document.getElementById("precio_total").value = precioConSeguro.toFixed(2);
+                // Establecer el valor en el campo oculto para enviarlo en el formulario
+                document.getElementById("precio_total").value = precioConSeguro.toFixed(2);
+
+                // Mostrar el botón de PayPal solo cuando el precio total se haya calculado
+                document.getElementById("paypal-button-container").style.display = "block";
+                renderPaypalButton(precioConSeguro.toFixed(2), fianza); // Pasar el precio calculado y la fianza al botón de PayPal
+            }
         }
     }
-}
 
 
+    // Función para renderizar el botón de PayPal con el precio calculado
+    function renderPaypalButton(totalPrice, fianza) {
+        paypal.Buttons({
+        createOrder: function (data, actions) {
+            let alquiler = totalPrice; // Precio del alquiler (2 decimales)
+            let fivePercent = (totalPrice * 0.05).toFixed(2); // Comisión (5%)
+            let fianzaFixed = parseFloat(fianza).toFixed(2); // Fianza (2 decimales)
+
+
+            // Calcular el subtotal total
+            let subtotal = (parseFloat(alquiler) + parseFloat(fivePercent) + parseFloat(fianzaFixed)).toFixed(2);
+
+        return actions.order.create({
+            purchase_units: [{
+                reference_id: 'default',
+                amount: {
+                    currency_code: "EUR",
+                    value: subtotal, // Total del pago (2 decimales)
+                    breakdown: {
+                        item_total: {
+                            value: subtotal, // Debe coincidir exactamente con la suma de los items
+                            currency_code: "EUR"
+                        }
+                    }
+                },
+                items: [
+                    {
+                        name: "Precio del alquiler",
+                        unit_amount: {
+                            currency_code: "EUR",
+                            value: alquiler // Precio base
+                        },
+                        quantity: "1"
+                    },
+                    {
+                        name: "Comisión del 5%",
+                        unit_amount: {
+                            currency_code: "EUR",
+                            value: fivePercent // Comisión
+                        },
+                        quantity: "1"
+                    },
+                    {
+                        name: "Fianza",
+                        unit_amount: {
+                            currency_code: "EUR",
+                            value: fianzaFixed // Fianza
+                        },
+                        quantity: "1"
+                    }
+                ],
+                payee: {
+                    email_address: 'sb-efu7q34194401@business.example.com' // Cuenta receptora
+                }
+            }]
+        });
+    },
+    onApprove: function (data, actions) {
+        return actions.order.capture().then(function (details) {
+            // Recoger el ID de la transacción
+            const transactionId = details.id; 
+            realizarAlquiler(transactionId);
+        });
+    },
+    onError: function (err) {
+        console.error('Error en el pago', err);
+        alert('Ocurrió un error al procesar el pago.');
+    }
+}).render('#paypal-button-container');
+
+
+    }
+
+    // Realiza el alquiler después de que el pago sea exitoso
+    function realizarAlquiler(transactionId) {
+        let fianza = document.getElementById('fianza').value;
+        console.log(fianza);  // Verifica si el valor de fianza es correcto
+        var formData = new FormData();
+        formData.append('fecha_rango', document.getElementById('fecha_rango').value);
+        formData.append('precio_total', document.getElementById('precio_total').value);
+        formData.append('fianza', fianza);
+        formData.append('transaction_id', transactionId); 
+        formData.append('_token', '{{ csrf_token() }}');
+
+        console.log('Datos enviados:', Object.fromEntries(formData.entries())); // Verifica los datos enviados al backend
+
+        fetch("{{ route('productos.actualizarReserva', $producto) }}", {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                console.log('Respuesta recibida:', response);
+                return response.json();
+            })
+            .then(data => {
+                console.log('Datos del backend:', data);
+                if (data.success) {
+                    alert("Alquiler realizado con éxito");
+                    window.location.href = '{{ route("perfil") }}';
+                } else {
+                    alert("Error al realizar el alquiler: " + (data.error || "Intenta nuevamente."));
+                }
+            })
+            .catch(error => {
+                console.error('Error en la solicitud:', error);
+                alert("Ocurrió un error al intentar realizar la reserva.");
+            });
+    }
     // Array con las fechas reservadas
     var fechasReservadas = @json($fechas_reservadas);
 
@@ -350,6 +495,20 @@
                 dayElem.style.backgroundColor = "#FF6347"; // Color rojo
                 dayElem.style.color = "white";
             }
+        }
+    });
+
+
+
+
+
+    document.querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevenir el envío automático del formulario
+        if (document.getElementById("precio_total").value) {
+            // Solo permitir el envío si el precio total ya ha sido calculado
+            this.submit(); // Enviar el formulario una vez que el precio esté listo
+        } else {
+            alert('Por favor, selecciona un rango de fechas antes de proceder.');
         }
     });
 </script>

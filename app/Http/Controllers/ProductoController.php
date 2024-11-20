@@ -286,8 +286,19 @@ public function store(Request $request){
         $valoraciones = Valoracion::where('id_producto', $producto->id)
             ->with('usuario')  // Asumiendo que tienes una relación `usuario` en Valoracion
             ->get();
+
+
+        $precioConSeguro = $producto->precio_dia + ($producto->precio_dia * 0.10); //
+
+ 
+
+
+        $paypalClientId = config('paypal.client_id');
+        $paypalClientSecret = config('paypal.client_secret');
+        $paypalMode = config('paypal.mode');
+    
         // Devolver la vista pasando los datos, incluyendo la suma de precio_total
-        return view('productos.verproducto', compact('producto', 'fechas_reservadas', 'alquilerActivo', 'valoraciones'));
+        return view('productos.verproducto', compact('producto', 'fechas_reservadas', 'alquilerActivo', 'valoraciones','precioConSeguro','paypalClientId','paypalMode'));
     }
     /**
      * Eliminar un registro
@@ -373,38 +384,62 @@ public function store(Request $request){
         ]);
     }
 
-    public function actualizarReserva(Request $request, Producto $producto){
-        $request->validate([
-            'fecha_rango' => 'required|string',
-        ]);
-
-        $fecha_rango = $request->fecha_rango;
-        if (strpos($fecha_rango, 'to') !== false) {
-            $rango_fechas = explode(" to ", $fecha_rango);
-            $fecha_inicio = Carbon::parse($rango_fechas[0]);
-            $fecha_fin = Carbon::parse($rango_fechas[1]);
-            $is_range = true;
-        } else {
-            $fecha_inicio = Carbon::parse($fecha_rango);
-            $fecha_fin = $fecha_inicio;
-            $is_range = false;
+    public function actualizarReserva(Request $request, Producto $producto)
+    {
+        try {
+            // Validar los datos de entrada
+            $request->validate([
+                'fecha_rango' => 'required|string',
+            ]);
+    
+            $fecha_rango = $request->fecha_rango;
+            if (strpos($fecha_rango, 'to') !== false) {
+                $rango_fechas = explode(" to ", $fecha_rango);
+                $fecha_inicio = Carbon::parse($rango_fechas[0]);
+                $fecha_fin = Carbon::parse($rango_fechas[1]);
+                $is_range = true;
+            } else {
+                $fecha_inicio = Carbon::parse($fecha_rango);
+                $fecha_fin = $fecha_inicio;
+                $is_range = false;
+            }
+    
+            // Crear el alquiler en la base de datos
+            $transaction_id = $request->transaction_id;
+            if (strlen($transaction_id) > 255) {
+                return response()->json(['success' => false, 'message' => 'Transaction ID is too long']);
+            }
+            $alquiler = Alquiler::create([
+                'id_producto' => $producto->id,
+                'id_arrendador' => $producto->id_usuario,
+                'id_arrendatario' => auth()->user()->id,
+                'fecha_inicio' => $fecha_inicio,
+                'fecha_fin' => $fecha_fin,
+                'precio_total' => $request->precio_total,
+                'fianza' => $request->fianza,
+                'transaction_id' => $transaction_id,
+                'is_range' => $is_range,
+            ]);
+    
+            // Actualizar el acumulado del producto
+            $producto->acumulado += $request->precio_total;
+            $producto->save();
+    
+            // Retornar respuesta JSON de éxito
+            return response()->json([
+                'success' => true,
+                'message' => 'Reserva realizada con éxito.',
+                'alquiler_id' => $alquiler->id, // Opcional: Puedes incluir más información si lo necesitas
+            ]);
+        } catch (\Exception $e) {
+            // Retornar respuesta JSON de error
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al realizar la reserva: ' . $e->getMessage(),
+            ], 500);
         }
-
-        // Crear el alquiler en la base de datos
-        Alquiler::create([
-            'id_producto' => $producto->id,
-            'id_arrendador' => $producto->id_usuario,
-            'id_arrendatario' => auth()->user()->id,
-            'fecha_inicio' => $fecha_inicio,
-            'fecha_fin' => $fecha_fin,
-            'precio_total' => $request->precio_total, // Puedes pasar el precio calculado desde el formulario si es necesario
-            'is_range' => $is_range,
-        ]);
-        $producto->acumulado += $request->precio_total;
-        $producto->save();
-        return redirect()->route('productos.verproducto', $producto)->with('success', 'Reserva realizada con éxito');
     }
-
+    
     public function obtenerAlquileres($productoId){
         $producto = Producto::find($productoId);
 

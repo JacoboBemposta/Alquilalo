@@ -34,5 +34,16 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
-
+    
+    'paypal' => [
+    'client_id' => env('PAYPAL_CLIENT_ID'),
+    'client_secret' => env('PAYPAL_CLIENT_SECRET'),
+    'settings' => [
+        'mode' => env('PAYPAL_MODE', 'sandbox'), // Cambia a 'live' para producción
+        'http.ConnectionTimeOut' => 30,
+        'log.LogEnabled' => true,
+        'log.FileName' => storage_path('/logs/paypal.log'),
+        'log.LogLevel' => 'ERROR', // Cambia a 'DEBUG' para desarrollo
+        ],
+    ],
 ];

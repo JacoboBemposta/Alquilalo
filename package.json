@@ -7,10 +7,15 @@
     },
     "devDependencies": {
         "@popperjs/core": "^2.11.6",
-        "axios": "^1.6.4",
+        "axios": "^1.7.7",
         "bootstrap": "^5.2.3",
         "laravel-vite-plugin": "^1.0",
         "sass": "^1.56.1",
         "vite": "^5.0"
+    },
+    "dependencies": {
+        "@paypal/checkout-server-sdk": "^1.0.3",
+        "dotenv": "^16.4.5",
+        "express": "^4.21.1"
     }
 }
