@@ -8,7 +8,38 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
+<style>
+    table {
+        table-layout: fixed;
+        width: 100%;
+        border-collapse: collapse;
+    }
 
+    td,
+    th {
+        text-align: center;
+        vertical-align: middle;
+        padding: 10px;
+    }
+
+    .col-producto {
+        width: 20%;
+    }
+
+    .col-fecha {
+        width: 15%;
+    }
+
+    .col-precio {
+        width: 10%;
+        text-align: right;
+    }
+
+    .col-acciones {
+        min-width: 150px;
+        /* Espacio mínimo para evitar colapsos */
+    }
+</style>
 <div class="container profile-container">
     <div class="profile-header">
         <h2>{{ Auth::user()->name }}</h2>
@@ -21,62 +52,62 @@
     <hr>
 
 
-<!-- Modal para mostrar detalles -->
-<div class="modal fade" id="modalDetallesPago" tabindex="-1" role="dialog" aria-labelledby="detallesPagoModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalDetallesPago">Detalles del Pago</h5>
-            </div>
-            <div class="modal-body" id="detallesPagoBody">
-                <p><strong>ID de Transacción:</strong> <span id="transactionId"></span></p>
-                <p><strong>Total:</strong> €<span id="total"></span></p>
-                <p><strong>Recibir:</strong> €<span id="recibir"></span></p>
-                <p><strong>Comisiones:</strong> €<span id="comisiones"></span></p>
-                <p><strong>Fecha Inicio:</strong> <span id="fecha_inicio"></span></p>
-                <p><strong>Fecha Fin:</strong> <span id="fecha_fin"></span></p>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Modal para abrir incidencia -->
-<div class="modal fade" id="modalAbrirIncidencia" tabindex="-1" role="dialog" aria-labelledby="modalAbrirIncidenciaLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalAbrirIncidenciaLabel">Abrir Incidencia</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- El formulario ahora está recibiendo el alquiler_id -->
-                <form id="formIncidencia" action="{{ route('incidencias.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <!-- Campo oculto para almacenar el alquiler_id -->
-                    <input type="hidden" id="alquiler_id" name="alquiler_id">
-                    
-                    <div class="form-group">
-                        <label for="descripcion">Descripción</label>
-                        <textarea class="form-control" id="descripcion" name="descripcion" rows="4" required></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="foto">Adjuntar Foto</label>
-                        <input type="file" class="form-control-file" id="foto" name="foto" accept="image/*">
-                    </div>
-
-                    <div class="form-group text-right">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Abrir Incidencia</button>
-                    </div>
-                </form>
+    <!-- Modal para mostrar detalles -->
+    <div class="modal fade" id="modalDetallesPago" tabindex="-1" role="dialog" aria-labelledby="detallesPagoModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDetallesPago">Detalles del Pago</h5>
+                </div>
+                <div class="modal-body" id="detallesPagoBody">
+                    <p><strong>ID de Transacción:</strong> <span id="transactionId"></span></p>
+                    <p><strong>Total:</strong> €<span id="total"></span></p>
+                    <p><strong>Recibir:</strong> €<span id="recibir"></span></p>
+                    <p><strong>Comisiones:</strong> €<span id="comisiones"></span></p>
+                    <p><strong>Fecha Inicio:</strong> <span id="fecha_inicio"></span></p>
+                    <p><strong>Fecha Fin:</strong> <span id="fecha_fin"></span></p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+
+    <!-- Modal para abrir incidencia -->
+    <div class="modal fade" id="modalAbrirIncidencia" tabindex="-1" role="dialog" aria-labelledby="modalAbrirIncidenciaLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAbrirIncidenciaLabel">Abrir Incidencia</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- El formulario ahora está recibiendo el alquiler_id -->
+                    <form id="formIncidencia" action="{{ route('incidencias.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <!-- Campo oculto para almacenar el alquiler_id -->
+                        <input type="hidden" id="alquiler_id" name="alquiler_id">
+
+                        <div class="form-group">
+                            <label for="descripcion">Descripción</label>
+                            <textarea class="form-control" id="descripcion" name="descripcion" rows="4" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="foto">Adjuntar Foto</label>
+                            <input type="file" class="form-control-file" id="foto" name="foto" accept="image/*">
+                        </div>
+
+                        <div class="form-group text-right">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Abrir Incidencia</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -95,38 +126,36 @@
             <table id="arrendatarioTable" class="display" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Producto</th>
-                        <th>Fecha Inicio</th>
-                        <th>Fecha Fin</th>
-                        <th>Precio (€)</th>
-                        <th>Acciones</th>
+                        <th class="col-producto">Producto</th>
+                        <th class="col-fecha">Fecha Inicio</th>
+                        <th class="col-fecha">Fecha Fin</th>
+                        <th class="col-precio">Precio (€)</th>
+                        <th class="col-acciones">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @php $acumuladoArrendatario = 0; @endphp
                     @foreach($alquileresComoArrendatario as $alquiler)
                     @php
-                       $incidencia = $alquiler->incidencia;
+                    $incidencia = $alquiler->incidencia;
                     @endphp
                     <tr>
-                        <td>{{ $alquiler->producto->nombre }}</td>
-                        <td>{{ $alquiler->fecha_inicio }}</td>
-                        <td>{{ $alquiler->fecha_fin }}</td>
-                        <td>{{ $alquiler->precio_total }}</td>
-                        <td>
+                        <td class="col-producto">{{ $alquiler->producto->nombre }}</td>
+                        <td class="col-fecha">{{ $alquiler->fecha_inicio }}</td>
+                        <td class="col-fecha">{{ $alquiler->fecha_fin }}</td>
+                        <td class="col-precio">{{ $alquiler->precio_total }}</td>
+                        <td class="col-acciones">
                             @php
-                                $fecha_inicio = \Carbon\Carbon::parse($alquiler->fecha_inicio);
-                                $fecha_fin = \Carbon\Carbon::parse($alquiler->fecha_fin);
-                                $fecha_limite = \Carbon\Carbon::now()->addDays(2); // Dos días a partir de la fecha actual
-                                $fecha_24h = \Carbon\Carbon::now()->subHours(24); // Hace 24 horas
+                            $fecha_inicio = \Carbon\Carbon::parse($alquiler->fecha_inicio);
+                            $fecha_fin = \Carbon\Carbon::parse($alquiler->fecha_fin);
+                            $fecha_limite = \Carbon\Carbon::now()->addDays(2); // Dos días a partir de la fecha actual
+                            $fecha_24h = \Carbon\Carbon::now()->subHours(24); // Hace 24 horas
                             @endphp
 
                             <div style="
                                 display: grid; 
                                 grid-template-columns: repeat(4, 40px); 
                                 gap: 10px; 
-                                justify-content: start; 
-                                align-items: center;
                             ">
                                 <!-- Botón de editar -->
                                 @if($fecha_inicio->isFuture() && $fecha_inicio->gt($fecha_limite))
@@ -160,13 +189,13 @@
                                 @if($fecha_inicio->isPast() && $fecha_fin->gt($fecha_24h))
                                 <div>
                                     @if(isset($incidencia))
-                                        <!-- Si existe la incidencia, mostrar la foto en miniatura -->
-                                        <img src="{{ asset('storage/'.$incidencia->ruta_imagen) }}" title="Incidencia abierta" alt="Incidencia abierta" style="width: 25px; height: 25px; object-fit: cover;">
+                                    <!-- Si existe la incidencia, mostrar la foto en miniatura -->
+                                    <img src="{{ asset('imagenes/ticket.png') }}" title="Incidencia abierta" alt="Incidencia abierta" style="width: 25px; height: 25px; object-fit: cover;">
                                     @else
-                                        <!-- Si no existe la incidencia, mostrar el botón para abrir una nueva incidencia -->
-                                        <button class="btn btn-sm" title="Abrir incidencia" onclick="abrirIncidencia('{{ $alquiler->id }}')">
-                                            <img src="{{ asset('imagenes/incidencia.png') }}" alt="Abrir incidencia" style="width: 25px; height: 25px;">
-                                        </button>
+                                    <!-- Si no existe la incidencia, mostrar el botón para abrir una nueva incidencia -->
+                                    <button class="btn btn-sm" title="Abrir incidencia" onclick="abrirIncidencia('{{ $alquiler->id }}')">
+                                        <img src="{{ asset('imagenes/incidencia.png') }}" alt="Abrir incidencia" style="width: 25px; height: 25px;">
+                                    </button>
                                     @endif
                                 </div>
                                 @else
@@ -213,77 +242,85 @@
             </button>
         </h3>
         <div id="arrendadorSection" style="display: none;">
-        @php $acumuladoArrendador = 0; @endphp
+            @php $acumuladoArrendador = 0; @endphp
             @if($alquileresComoArrendador->isNotEmpty())
             <table id="arrendadorTable" class="display" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Productos</th>
-                    <th>Fecha Inicio</th>
-                    <th>Fecha Fin</th>
-                    <th>Precio (€)</th>
-                    <th>Acciones</th> <!-- Nueva columna para las acciones -->
-                </tr>
-            </thead>
-            <tbody>
-                @php $acumuladoArrendador = 0; @endphp
-                @foreach($alquileresComoArrendador as $alquiler)
-                    @php
-                        $incidencia = $alquiler->incidencia;
-                    @endphp
-                    
+                <thead>
                     <tr>
-                        <td>{{ $alquiler->producto->descripcion }}</td>
-                        <td>{{ $alquiler->fecha_inicio }}</td>
-                        <td>{{ $alquiler->fecha_fin }}</td>
-                        <td>{{ $alquiler->precio_total }} €</td>
-                        @php
-                            $fecha_inicio = \Carbon\Carbon::parse($alquiler->fecha_inicio);
-                            $fechaFin = \Carbon\Carbon::parse($alquiler->fecha_fin);
-                            $fechaLimite = $fechaFin->copy()->addHours(24);
-                        @endphp
-                        <!-- Columna de acciones -->
-                        <td>
+                        <th class="col-producto">Producto</th>
+                        <th class="col-fecha">Fecha Inicio</th>
+                        <th class="col-fecha">Fecha Fin</th>
+                        <th class="col-precio">Precio (€)</th>
+                        <th class="col-acciones">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php $acumuladoArrendador = 0; @endphp
+                    @foreach($alquileresComoArrendador as $alquiler)
+                    @php
+                    $incidencia = $alquiler->incidencia;
+                    @endphp
+
+                    <tr>
+                        <td class="col-producto">{{ $alquiler->producto->nombre }}</td>
+                        <td class="col-fecha">{{ $alquiler->fecha_inicio }}</td>
+                        <td class="col-fecha">{{ $alquiler->fecha_fin }}</td>
+                        <td class="col-precio">{{ $alquiler->precio_total }}</td>
+                        <td class="col-acciones">
                             @php
                                 $fecha_inicio = \Carbon\Carbon::parse($alquiler->fecha_inicio);
                                 $fecha_fin = \Carbon\Carbon::parse($alquiler->fecha_fin);
-                                $fechaLimite = $fecha_fin->addHours(24); // Hasta 24 horas después de la fecha_fin
+                                $fechaLimite = $fecha_fin->copy()->addHours(24); // Hasta 24 horas después de la fecha_fin
                             @endphp
 
-                            @if(\Carbon\Carbon::now()->gte($fecha_inicio) && \Carbon\Carbon::now()->lte($fechaLimite))
-                                <div style="
-                                    display: grid; 
-                                    grid-template-columns: 40px; 
-                                    grid-auto-rows: 40px; 
-                                    justify-content: center; 
-                                    align-items: center;
-                                ">
-                                    <!-- Si existe la incidencia, mostrar la foto en miniatura -->
+                            <div style="
+                                display: grid; 
+                                grid-template-columns: repeat(4, 40px); 
+                                gap: 10px; 
+                            ">
+                                <!-- Botón de incidencia -->
+                                @if(\Carbon\Carbon::now()->gte($fecha_inicio) && \Carbon\Carbon::now()->lte($fechaLimite))
                                     @if(isset($incidencia))
-                                        <div>
-                                            <img src="{{ asset('storage/'.$incidencia->ruta_imagen) }}" title="Incidencia abierta"
-                                                alt="Incidencia" 
-                                                style="width: 25px; height: 25px; object-fit: cover;">
-                                        </div>
+                                        <img src="{{ asset('imagenes/ticket.png') }}" 
+                                            title="Incidencia abierta" 
+                                            alt="Incidencia" 
+                                            style="width: 25px; height: 25px; object-fit: cover;">
                                     @else
-                                        <!-- Si no existe la incidencia, mostrar el botón para abrir una nueva incidencia -->
-                                        <div>
-                                            <button class="btn btn-sm" title="Abrir incidencia" onclick="abrirIncidencia('{{ $alquiler->id }}')">
-                                                <img src="{{ asset('imagenes/incidencia.png') }}" 
-                                                    alt="Abrir incidencia" 
-                                                    style="width: 25px; height: 25px;">
-                                            </button>
-                                        </div>
+                                        <button class="btn btn-sm" 
+                                                title="Abrir incidencia" 
+                                                onclick="abrirIncidencia('{{ $alquiler->id }}')">
+                                            <img src="{{ asset('imagenes/incidencia.png') }}" 
+                                                alt="Abrir incidencia" 
+                                                style="width: 25px; height: 25px;">
+                                        </button>
                                     @endif
-                                </div>
-                            @endif
+                                @else
+                                    <!-- Placeholder vacío -->
+                                    <div style="width: 25px; height: 25px;"></div>
+                                @endif
+
+                                <!-- Botón de detalles -->
+                                @if(!empty($alquiler->transaction_id))
+                                    <button class="btn btn-sm" 
+                                            title="Ver detalles del pago" 
+                                            onclick="mostrarDetalles('{{ $alquiler->transaction_id }}')">
+                                        <img src="{{ asset('imagenes/vermas.jpg') }}" 
+                                            alt="Ver Alquileres" 
+                                            style="width: 25px; height: 25px;">
+                                    </button>
+                                @else
+                                    <!-- Placeholder vacío -->
+                                    <div style="width: 25px; height: 25px;"></div>
+                                @endif
+                            </div>
                         </td>
+
 
                         @php $acumuladoArrendador += $alquiler->precio_total; @endphp
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                    @endforeach
+                </tbody>
+            </table>
 
             <p><strong>Total acumulado como arrendador:</strong> {{ $acumuladoArrendador }} €</p>
             @else
@@ -331,14 +368,14 @@
     function mostrarDetalles(transaction_id) {
         // Hacer una solicitud AJAX para obtener los detalles de la transacción
         $.ajax({
-            url: '/pagos/detalles/' + transaction_id,  // URL con el transaction_id
+            url: '/pagos/detalles/' + transaction_id, // URL con el transaction_id
             type: 'GET',
             success: function(response) {
-                if(response.status === 'success') {
+                if (response.status === 'success') {
                     $('#transactionId').text(response.data.transaction_id);
-                    $('#total').text(response.data.Total); 
-                    $('#recibir').text(response.data.Recibir); 
-                    $('#comisiones').text(response.data.Comisiones); 
+                    $('#total').text(response.data.Total);
+                    $('#recibir').text(response.data.Recibir);
+                    $('#comisiones').text(response.data.Comisiones);
                     $('#fecha_inicio').text(response.data.fecha_inicio);
                     $('#fecha_fin').text(response.data.fecha_fin);
 
@@ -355,19 +392,17 @@
     }
 
     function abrirIncidencia(alquilerId) {
-    console.log(alquilerId);  // Revisa que alquilerId tenga un valor correcto
-    if (alquilerId) {
-        // Establece el alquiler_id en el formulario
-        $('#alquiler_id').val(alquilerId);
-        
-        // Muestra el modal
-        $('#modalAbrirIncidencia').modal('show');
-    } else {
-        console.error("El alquilerId es inválido.");
+        console.log(alquilerId); // Revisa que alquilerId tenga un valor correcto
+        if (alquilerId) {
+            // Establece el alquiler_id en el formulario
+            $('#alquiler_id').val(alquilerId);
+
+            // Muestra el modal
+            $('#modalAbrirIncidencia').modal('show');
+        } else {
+            console.error("El alquilerId es inválido.");
+        }
     }
-}
-
-
 </script>
 
 @endsection
