@@ -6,11 +6,12 @@ use App\Models\caracteristica;
 use App\Models\Categoria;
 use App\Models\Producto;
 use App\Models\ImagenProducto;
+use App\Models\Alquiler;
+use App\Models\Valoracion;
+use App\Models\Incidencia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Alquiler;
-use App\Models\Valoracion;
 use Carbon\Carbon;
 
 
@@ -289,8 +290,6 @@ public function store(Request $request){
 
 
         $precioConSeguro = $producto->precio_dia + ($producto->precio_dia * 0.10); //
-
- 
 
 
         $paypalClientId = config('paypal.client_id');

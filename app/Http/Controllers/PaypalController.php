@@ -25,7 +25,7 @@ class PayPalController extends Controller
     public function createPayment(Request $request, $productoId)
     {
         $producto = Producto::findOrFail($productoId);
-        $precioTotal = $request->input('precio_total');
+        $precioTotal = $request->input('precio_total') * 0.95;
         $comision = $precioTotal * 0.05;
         $montoUsuario = $precioTotal - $comision;
 

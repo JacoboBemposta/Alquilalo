@@ -70,6 +70,15 @@
                     </div>
                 </div>
                 <div class="faq-question">
+                    <h4>¿Cómo abro una incidencia?</h4>
+                    <div class="faq-answer">
+                        <p>Puedes abrir una incidencia desde la seccion de ayuda enviándos un correo.</p>
+                        <p>También abrirla desde tu perfil adjuntando una imagen si hay una incidencia física</p>
+                        <p>Como arrendatario puedes abrir incidencia en cualquier momento desde el inicio del alquiler</p>
+                        <p>Como arrendador puedes abrir una incidencia desde el fin del alquiler hasta pasadas 24 horas.</p>
+                    </div>
+                </div>
+                <div class="faq-question">
                     <h4>Si me alquilan un artículo, ¿cuándo cobro?</h4>
                     <div class="faq-answer">
                         <p>Una vez que te devuelvan el artículo, tienes 24 horas para abrir una incidencia si encuentras cualquier problema. Si (como esperamos) todo ha ido bien y no hay ningún problema, pasado ese plazo ordenaremos automáticamente el pago a tu cuenta. Actualmente no podemos realizar pagos antes de que pase una semana desde que el usuario te pidió el artículo, por el sistema que usan nuestros proveedores de pago con tarjeta para detección de fraude, etc.</p>
@@ -78,7 +87,7 @@
                 <div class="faq-question">
                     <h4>¿Y si me alquilan un artículo y no me pagan?</h4>
                     <div class="faq-answer">
-                        <p>En el momento en que aceptas una solicitud de alquiler, a quien lo pide se le cobra el importe del alquiler y se reserva en su tarjeta el importe de la fianza. Tienes garantizado el cobro del alquiler al final del plazo.</p>
+                        <p>En el momento en que realizan una solicitud de alquiler, al solicitante se le cobra el importe del alquiler y se reserva en su tarjeta el importe de la fianza. Tienes garantizado el cobro del alquiler al final del plazo.</p>
                     </div>
                 </div>
                 <div class="faq-question">

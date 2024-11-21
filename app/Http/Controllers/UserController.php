@@ -30,8 +30,6 @@ class UserController extends Controller{
             'usuario', 
             'alquileresComoArrendatario', 
             'alquileresComoArrendador', 
-            'alquileresComoArrendatario', 
-            'alquileresComoArrendador'
         ));
     }
     

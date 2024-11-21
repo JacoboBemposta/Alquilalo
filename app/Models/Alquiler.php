@@ -33,4 +33,8 @@ class Alquiler extends Model{
     public function arrendador(){
         return $this->belongsTo(User::class, 'id_arrendador');
     }
+
+    public function incidencia(){
+        return $this->hasOne(Incidencia::class);
+    }
 }

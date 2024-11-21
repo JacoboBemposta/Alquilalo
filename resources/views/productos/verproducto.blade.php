@@ -109,7 +109,7 @@
 
             <!-- Formulario para seleccionar la fecha y reservar -->
             <div class="col-8 text-center d-flex flex-column justify-content-center align-items-center">
-                @if(Auth::id() !== $producto->usuario->id) <!-- Comprobamos si el usuario autenticado no es el propietario -->
+              @if(Auth::check() && Auth::id() !== $producto->usuario->id) <!-- Comprobamos si el usuario autenticado no es el propietario -->
                 <form action="{{ route('productos.actualizarReserva', $producto) }}" method="POST">
                     @csrf
                     <div class="form-group mb-3">
@@ -359,7 +359,7 @@
     function renderPaypalButton(totalPrice, fianza) {
         paypal.Buttons({
         createOrder: function (data, actions) {
-            let alquiler = totalPrice; // Precio del alquiler (2 decimales)
+            let alquiler = totalPrice * 0.95; // Precio del alquiler (2 decimales)
             let fivePercent = (totalPrice * 0.05).toFixed(2); // Comisión (5%)
             let fianzaFixed = parseFloat(fianza).toFixed(2); // Fianza (2 decimales)
 
