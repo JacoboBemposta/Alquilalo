@@ -72,16 +72,15 @@
                 <div class="faq-question">
                     <h4>¿Cómo abro una incidencia?</h4>
                     <div class="faq-answer">
-                        <p>Puedes abrir una incidencia desde la seccion de ayuda enviándos un correo.</p>
-                        <p>También abrirla desde tu perfil adjuntando una imagen si hay una incidencia física</p>
-                        <p>Como arrendatario puedes abrir incidencia en cualquier momento desde el inicio del alquiler</p>
-                        <p>Como arrendador puedes abrir una incidencia desde el fin del alquiler hasta pasadas 24 horas.</p>
+                        <p>Puedes abrir una incidencia desde la seccion de ayuda enviándonos un correo o abrirla desde tu perfil adjuntando una imagen si se trata de una incidencia física.</p>
+                        <p>Como arrendatario puedes abrir incidencia en cualquier momento desde el inicio al fin del alquiler. Como arrendador puedes abrir una incidencia desde el fin del alquiler y pasadas 24 horas.</p>
+                        <p>En el momento de abrir una incidencia debes adjuntar el nombre de usuario, teléfono, mail y fotos si proceden, nuestro equipo evaluará la incidencia y pondrá en contacto a las partes implicadas, si fuese necesario, para mediar una solucion.</p>
                     </div>
                 </div>
                 <div class="faq-question">
                     <h4>Si me alquilan un artículo, ¿cuándo cobro?</h4>
                     <div class="faq-answer">
-                        <p>Una vez que te devuelvan el artículo, tienes 24 horas para abrir una incidencia si encuentras cualquier problema. Si (como esperamos) todo ha ido bien y no hay ningún problema, pasado ese plazo ordenaremos automáticamente el pago a tu cuenta. Actualmente no podemos realizar pagos antes de que pase una semana desde que el usuario te pidió el artículo, por el sistema que usan nuestros proveedores de pago con tarjeta para detección de fraude, etc.</p>
+                        <p>Una vez que te devuelvan el artículo, tienes 24 horas para abrir una incidencia si encuentras cualquier problema. Si todo ha ido bien y no hay ningún problema, pasado ese plazo ordenaremos automáticamente el pago a tu cuenta. El pago se realizará en un plazo no superior a una semana desde que el usuario te pidió el artículo. Este plazo viene impuesto por el sistema que usan nuestros proveedores de pago con tarjeta para detección de fraude, etc.</p>
                     </div>
                 </div>
                 <div class="faq-question">
@@ -113,13 +112,13 @@
                 <div class="faq-question">
                     <h4>¿Qué pasa si el arrendatario no devuelve el artículo al propietario?</h4>
                     <div class="faq-answer">
-                        <p>Además del cobro de la fianza. Conforme a la legislación, actuaríamos como intermediarios y facilitaríamos los datos del arrendatario a la policía para interponer una denuncia.</p>
+                        <p>Además del cobro de la fianza, conforme a la legislación, actuaríamos como intermediarios y facilitaríamos los datos del arrendatario a la policía para interponer una denuncia.</p>
                     </div>
                 </div>
                 <div class="faq-question">
                     <h4>¿Cómo funciona el sistema de fianzas y seguro?</h4>
                     <div class="faq-answer">
-                        <p>Alquílalo trabaja conjuntamente con una empresa de seguros. El arrendador decide si poner o no una fianza. Se aplica, por norma general, un incremento del 10% para el seguro.</p>
+                        <p>Alquílalo trabaja conjuntamente con una empresa de seguros. El arrendador decide si poner o no una fianza. Se aplica, por norma general, un incremento del 10% sobre el precio de alquiler para cubrir gastos del seguro.</p>
                     </div>
                 </div>                
             </section>

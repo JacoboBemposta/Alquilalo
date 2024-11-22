@@ -44,7 +44,7 @@ class IncidenciaController extends Controller{
             'alquiler_id' => $request->alquiler_id,
             'descripcion' => $request->descripcion,
             'ruta_imagen' => $fotoPath,  // Guardar la ruta de la imagen
-            'aprobado' => false,  // Estado inicial
+            'resuelta' => false,  // Estado inicial
         ]);
     
         return redirect()->back()->with('success', 'Incidencia abierta correctamente.');
@@ -72,7 +72,7 @@ class IncidenciaController extends Controller{
         $incidencia->save();
     
         // Redirigir con mensaje de éxito
-        return redirect()->route('incidencias.index')->with('success', 'Incidencia aprobada correctamente.');
+        return redirect()->route('incidencias.index')->with('success', 'Incidencia resuelta positivamente.');
     }
     
     public function rechazar($id){
@@ -80,11 +80,11 @@ class IncidenciaController extends Controller{
         $incidencia = Incidencia::findOrFail($id);
     
         // Actualizar el estado de 'aprobado' a false
-        $incidencia->aprobado = false;
+        $incidencia->aprobado = true;
         $incidencia->save();
     
         // Redirigir con mensaje de éxito
-        return redirect()->route('incidencias.index')->with('success', 'Incidencia rechazada correctamente.');
+        return redirect()->route('incidencias.index')->with('success', 'Incidencia rechazada.');
     }
     
 }

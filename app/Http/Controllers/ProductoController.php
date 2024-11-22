@@ -177,11 +177,12 @@ public function store(Request $request){
     public function edit(Request $request)
     {
         // Sanear los inputs del request
-        $request->merge([
+        $request->merge([            
             'id_categoria' => strip_tags($request->input('id_categoria')),
             'id_subcategoria' => strip_tags($request->input('id_subcategoria')),
-            'precio_dia' => strip_tags($request->input('precio_dia')),
+            'nombre' => strip_tags($request->input('nombre')),
             'descripcion' => strip_tags($request->input('descripcion')),
+            'precio_dia' => strip_tags($request->input('precio_dia')),
             'precio_semana' => strip_tags($request->input('precio_semana')),
             'precio_mes' => strip_tags($request->input('precio_mes')),
             'fianza' => strip_tags($request->input('fianza')), // Nuevo campo para la fianza
@@ -191,6 +192,7 @@ public function store(Request $request){
         $producto = Producto::find($request->id_producto);
         $producto->id_categoria = $request->id_categoria;
         $producto->id_subcategoria = $request->id_subcategoria;
+        $producto->nombre = $request->nombre;
         $producto->descripcion = $request->descripcion;
         $producto->precio_dia = $request->precio_dia;
         $producto->precio_semana = $request->precio_semana;

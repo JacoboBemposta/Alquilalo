@@ -14,7 +14,7 @@ class CreateIncidenciasTable extends Migration
             $table->unsignedBigInteger('alquiler_id');  // Relación con el alquiler
             $table->text('descripcion');  // Descripción de la incidencia
             $table->string('ruta_imagen')->nullable();  // Columna para la ruta de la imagen
-            $table->boolean('aprobado')->default(false);  // Estado de aprobación de la incidencia
+            $table->boolean('resuelta')->default(false);  // Estado de aprobación de la incidencia
             $table->timestamps();  // Fechas de creación y actualización
     
             // Definimos la clave foránea

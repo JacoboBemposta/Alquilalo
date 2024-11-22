@@ -66,7 +66,7 @@
                             <span>{{ $totales_alquiler[$producto->id] ?? 0 }} €</span>
                             @if(($totales_alquiler[$producto->id] ?? 0) > 0)
                             <button class="btn btn-sm toggle-alquileres">
-                                <img src="{{ asset('imagenes/vermas.jpg') }}" alt="Ver Alquileres">
+                                <img src="{{ asset('imagenes/vermas.jpg') }}" alt="Ver Alquileres" title="Ver alquileres">
                             </button>
                             @endif
                         </div>

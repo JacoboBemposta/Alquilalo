@@ -22,6 +22,18 @@ class Alquiler extends Model{
     ];
     protected $dates = ['fecha_inicio', 'fecha_fin'];
 
+        // Accesor para formatear fecha_inicio
+        public function getFechaInicioAttribute($value)
+        {
+            return \Carbon\Carbon::parse($value)->format('d-m-Y');
+        }
+    
+        // Accesor para formatear fecha_fin
+        public function getFechaFinAttribute($value)
+        {
+            return \Carbon\Carbon::parse($value)->format('d-m-Y');
+        }
+
     public function producto(){
         return $this->belongsTo(Producto::class, 'id_producto');
     }

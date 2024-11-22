@@ -17,7 +17,7 @@ class Incidencia extends Model
         'alquiler_id',
         'descripcion',
         'ruta_imagen',
-        'aprobado',  // Agregar el campo aprobado a los campos asignables
+        'resuelta',  // Agregar el campo aprobado a los campos asignables
     ];
 
     // Relación con el modelo Alquiler

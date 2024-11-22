@@ -19,7 +19,7 @@ class AlquilerController extends Controller
     
         // Formatear las fechas reservadas
         $fechas_reservadas = $reservas->map(function ($reserva) {
-            return Carbon::parse($reserva->fecha_inicio)->format('Y-m-d'); // Solo la fecha de inicio
+            return Carbon::parse($reserva->fecha_inicio)->format('d-m-Y'); // Solo la fecha de inicio
         });
     
         // Pasar las fechas reservadas al frontend

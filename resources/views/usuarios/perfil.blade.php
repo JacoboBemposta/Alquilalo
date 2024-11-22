@@ -41,7 +41,7 @@
     }
 </style>
 <div class="container profile-container">
-    <div class="profile-header">
+    <div class="profile-header mx-auto p-4">
         <h2>{{ Auth::user()->name }}</h2>
         <p>Email: {{ Auth::user()->email }}</p>
         <div class="change-password">
@@ -188,7 +188,8 @@
                                 <!-- Botón de incidencia -->
                                 @if($fecha_inicio->isPast() && $fecha_fin->gt($fecha_24h))
                                 <div>
-                                    @if(isset($incidencia))
+                                    @if(isset($incidencia) && !$incidencia->resuelta)
+
                                     <!-- Si existe la incidencia, mostrar la foto en miniatura -->
                                     <img src="{{ asset('imagenes/ticket.png') }}" title="Incidencia abierta" alt="Incidencia abierta" style="width: 25px; height: 25px; object-fit: cover;">
                                     @else
@@ -199,7 +200,12 @@
                                     @endif
                                 </div>
                                 @else
-                                <div></div> <!-- Espacio reservado -->
+                                <div>
+                                    @if(isset($incidencia) && !$incidencia->resuelta)
+                                    <!-- Si existe la incidencia, mostrar la foto en miniatura -->
+                                    <img src="{{ asset('imagenes/ticket.png') }}" title="Incidencia abierta" alt="Incidencia abierta" style="width: 25px; height: 25px; object-fit: cover;">
+                                    @endif
+                                </div>
                                 @endif
 
                                 <!-- Botón de detalles -->
@@ -268,9 +274,14 @@
                         <td class="col-precio">{{ $alquiler->precio_total }}</td>
                         <td class="col-acciones">
                             @php
-                                $fecha_inicio = \Carbon\Carbon::parse($alquiler->fecha_inicio);
-                                $fecha_fin = \Carbon\Carbon::parse($alquiler->fecha_fin);
-                                $fechaLimite = $fecha_fin->copy()->addHours(24); // Hasta 24 horas después de la fecha_fin
+                            $fecha_inicio = \Carbon\Carbon::parse($alquiler->fecha_inicio);
+                            $fecha_fin = \Carbon\Carbon::parse($alquiler->fecha_fin);
+
+                            // Fecha límite: 24 horas después de la fecha de fin del alquiler
+                            $fechaLimite = $fecha_fin->copy()->addHours(48);
+
+                            // Asegúrate de que la fecha actual esté en el rango correcto
+                            $hoy = \Carbon\Carbon::now();
                             @endphp
 
                             <div style="
@@ -279,38 +290,46 @@
                                 gap: 10px; 
                             ">
                                 <!-- Botón de incidencia -->
-                                @if(\Carbon\Carbon::now()->gte($fecha_inicio) && \Carbon\Carbon::now()->lte($fechaLimite))
-                                    @if(isset($incidencia))
-                                        <img src="{{ asset('imagenes/ticket.png') }}" 
-                                            title="Incidencia abierta" 
-                                            alt="Incidencia" 
-                                            style="width: 25px; height: 25px; object-fit: cover;">
-                                    @else
-                                        <button class="btn btn-sm" 
-                                                title="Abrir incidencia" 
-                                                onclick="abrirIncidencia('{{ $alquiler->id }}')">
-                                            <img src="{{ asset('imagenes/incidencia.png') }}" 
-                                                alt="Abrir incidencia" 
-                                                style="width: 25px; height: 25px;">
-                                        </button>
-                                    @endif
+                                @if($hoy->gte($fecha_fin) && $hoy->lte($fechaLimite))
+                                {{-- Si la fecha actual está dentro del rango, mostrar el icono de incidencia --}}
+                                @if(isset($incidencia) && !$incidencia->resuelta)
+                                <!-- Mostrar el icono de incidencia abierta si la incidencia no está resuelta -->
+                                <img src="{{ asset('imagenes/ticket.png') }}"
+                                    title="Incidencia abierta"
+                                    alt="Incidencia"
+                                    style="width: 25px; height: 25px; object-fit: cover;">
                                 @else
-                                    <!-- Placeholder vacío -->
-                                    <div style="width: 25px; height: 25px;"></div>
+                                <!-- Si la incidencia está resuelta o no existe, mostrar el botón para abrir incidencia -->
+                                <button class="btn btn-sm"
+                                    title="Abrir incidencia"
+                                    onclick="abrirIncidencia('{{ $alquiler->id }}')">
+                                    <img src="{{ asset('imagenes/incidencia.png') }}"
+                                        alt="Abrir incidencia"
+                                        style="width: 25px; height: 25px;">
+                                </button>
+                                @endif
+                                @else
+                                <!-- Placeholder vacío o lo que quieras mostrar cuando no está dentro del rango -->
+                                <div style="width: 25px; height: 25px;">
+                                    @if(isset($incidencia) && !$incidencia->resuelta)
+                                    <!-- Si existe la incidencia y no está resuelta, mostrar el icono de incidencia -->
+                                    <img src="{{ asset('imagenes/ticket.png') }}" title="Incidencia abierta" alt="Incidencia abierta" style="width: 25px; height: 25px; object-fit: cover;">
+                                    @endif
+                                </div>
                                 @endif
 
                                 <!-- Botón de detalles -->
                                 @if(!empty($alquiler->transaction_id))
-                                    <button class="btn btn-sm" 
-                                            title="Ver detalles del pago" 
-                                            onclick="mostrarDetalles('{{ $alquiler->transaction_id }}')">
-                                        <img src="{{ asset('imagenes/vermas.jpg') }}" 
-                                            alt="Ver Alquileres" 
-                                            style="width: 25px; height: 25px;">
-                                    </button>
+                                <button class="btn btn-sm"
+                                    title="Ver detalles del pago"
+                                    onclick="mostrarDetalles('{{ $alquiler->transaction_id }}')">
+                                    <img src="{{ asset('imagenes/vermas.jpg') }}"
+                                        alt="Ver Alquileres"
+                                        style="width: 25px; height: 25px;">
+                                </button>
                                 @else
-                                    <!-- Placeholder vacío -->
-                                    <div style="width: 25px; height: 25px;"></div>
+                                <!-- Placeholder vacío -->
+                                <div style="width: 25px; height: 25px;"></div>
                                 @endif
                             </div>
                         </td>

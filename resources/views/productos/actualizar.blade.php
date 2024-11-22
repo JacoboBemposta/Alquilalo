@@ -39,7 +39,7 @@
 </div>
                     <div class="form-group text-center mt-2">
                         <label for="nombre">Nombre del producto</label>
-                        <input type="text" name="nombre" id="nombre" class="form-control mx-auto" style="max-width: 300px;" value="{{$producto->nombre}}"readonly>
+                        <input type="text" name="nombre" id="nombre" class="form-control mx-auto" style="max-width: 300px;" value="{{$producto->nombre}}">
                     </div>
                     <div class="form-group text-center mt-2">
                         <label for="descripcion">Descripción breve</label>

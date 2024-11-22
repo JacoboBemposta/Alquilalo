@@ -14,24 +14,28 @@ use Carbon\Carbon;
 class UserController extends Controller{
 
 
-    public function show(){
-        // Obtener el usuario por su id
+    public function show() {
         $usuario = User::findOrFail(Auth::user()->id);
     
-        // Obtener los alquileres como arrendatario
-        $alquileresComoArrendatario = $usuario->alquileresComoArrendatario()->with('producto')->get();
+        $alquileresComoArrendatario = $usuario->alquileresComoArrendatario()
+            ->with(['producto', 'incidencia'])
+            ->get();
     
-        // Obtener los alquileres como arrendador
-        $alquileresComoArrendador = $usuario->alquileresComoArrendador()->with('producto')->get();
+        $alquileresComoArrendador = $usuario->alquileresComoArrendador()
+            ->with(['producto', 'incidencia'])
+            ->get();
     
-
+        // Depuración: verifica los datos
+   
     
         return view('usuarios.perfil', compact(
-            'usuario', 
-            'alquileresComoArrendatario', 
-            'alquileresComoArrendador', 
+            'usuario',
+            'alquileresComoArrendatario',
+            'alquileresComoArrendador'
         ));
     }
+    
+    
     
     
     
