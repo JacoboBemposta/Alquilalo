@@ -114,7 +114,7 @@
 
 
     <!-- Sección de Arrendatario -->
-    <div class="rentals-section section">
+    <div class="rentals-section section mt-5">
         <h3>
             Alquileres Realizados como Arrendatario
             <button class="btn toggle-btn" data-target="#arrendatarioSection">
