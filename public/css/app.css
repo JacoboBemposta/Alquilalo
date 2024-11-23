@@ -180,7 +180,7 @@ header {
     /** FOMRULARIOS **/
 
 .form-container {
-    background: linear-gradient(180deg, grey 80%, darkgreen 100%);
+    background: linear-gradient(180deg, grey 80%, rgb(140, 179, 140) 100%);
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 25px;
@@ -299,13 +299,13 @@ header {
 
 /* --------BOTON btn -----*/
 .btn {
-    --color: darkgreen;
+    --color: rgb(120, 184, 120);
     --color2: rgb(10, 25, 30);
     padding: 0.8em 1.75em;
     background-color: transparent;
     border-radius: 6px;
     border: .3px solid var(--color);
-    transition: .5s;
+    transition: 1.5s;
     position: relative;
     overflow: hidden;
     cursor: pointer;
@@ -317,7 +317,7 @@ header {
     color: var(--color);
 }
 
-.btn::after,
+/* .btn::after,
 .btn::before {
     content: '';
     display: block;
@@ -330,7 +330,7 @@ header {
     z-index: -1;
     transition: .5s ease-out;
     background-color: var(--color);
-}
+} */
 
 .btn::before {
     top: -50%;
@@ -348,6 +348,8 @@ header {
 
 .btn:hover {
     color: var(--color2);
+    transform: scale(1.3);
+    transition: 0.3s;
 }
 
 .btn:active {
