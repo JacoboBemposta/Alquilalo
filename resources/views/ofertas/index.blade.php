@@ -71,7 +71,7 @@
                             <textarea id="descripcion" name="descripcion" class="form-control" rows="4" placeholder="Describe brevemente el item" required></textarea>
                         </div>
                         <div class="d-grid">
-                            <button type="submit" class="btn bg-secondary btn-block">Publicar</button>
+                            <button type="submit" class="bg-secondary btn-block">Publicar</button>
                         </div>
                     </form>
                 </div>

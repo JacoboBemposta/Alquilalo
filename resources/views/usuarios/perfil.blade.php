@@ -4,10 +4,9 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="css/perfil.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
     table {
         table-layout: fixed;
@@ -61,9 +60,9 @@
                 </div>
                 <div class="modal-body" id="detallesPagoBody">
                     <p><strong>ID de Transacción:</strong> <span id="transactionId"></span></p>
-                    <p><strong>Total:</strong> €<span id="total"></span></p>
-                    <p><strong>Recibir:</strong> €<span id="recibir"></span></p>
-                    <p><strong>Comisiones:</strong> €<span id="comisiones"></span></p>
+                    <p><strong>Total:</strong><span id="total"></span> €</p>
+                    <p><strong>Recibido:</strong><span id="recibir"></span> €</p>
+                    <p><strong>Comisiones:</strong> <span id="comisiones"></span> €</p>
                     <p><strong>Fecha Inicio:</strong> <span id="fecha_inicio"></span></p>
                     <p><strong>Fecha Fin:</strong> <span id="fecha_fin"></span></p>
                 </div>
