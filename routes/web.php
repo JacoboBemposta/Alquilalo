@@ -11,7 +11,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PagoController;
 use App\Http\Controllers\IncidenciaController;
-
+use App\Http\Controllers\EntregaRecogidaController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -88,3 +89,17 @@ Route::get('/presentacion', function () {
 
 Route::get('/pagos/detalles/{id}', [PagoController::class, 'detalles'])->name('pagos.detalles');
 Route::post('/incidencias', [IncidenciaController::class, 'store'])->name('incidencias.store');
+
+
+
+Route::post('/entregas-recogidas', [EntregaRecogidaController::class, 'registrarEvento'])->name('entregas-recogidas.registrar');
+Route::get('/entregas-recogidas/{alquiler_id}', [EntregaRecogidaController::class, 'obtenerEventos'])->name('entregas-recogidas.obtener');
+Route::get('/productos/{productoId}/estados', [ProductoController::class, 'verEstadosProducto'])->name('productos.ver_estados');
+
+
+Route::get('/admin/alquileres', [AdminController::class, 'index'])->name('admin.alquileres');
+Route::get('/alquileres/{id}', [AdminController::class, 'detallesAlquiler'])->name('admin.detalles_alquiler');
+Route::get('/alquileres/gestionar', [AlquilerController::class, 'gestionarAlquileres'])->name('admin.gestionar_alquileres');
+Route::put('/alquileres/cambiar_estado/{id}', [AlquilerController::class, 'cambiarEstado'])->name('admin.cambiar_estado');
+
+

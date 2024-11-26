@@ -53,4 +53,9 @@ class Producto extends Model{
         return $this->hasOne(Caracteristica::class, 'id_producto');
 
     }
+
+    public function alquilerActual()
+    {
+        return $this->hasOne(Alquiler::class)->where('fecha_inicio', '<=', now())->where('fecha_fin', '>=', now());
+    }    
 }

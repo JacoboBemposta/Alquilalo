@@ -49,4 +49,9 @@ class Alquiler extends Model{
     public function incidencia(){
         return $this->hasOne(Incidencia::class);
     }
+
+    public function entregasRecogidas()
+    {
+        return $this->hasMany(EntregaRecogida::class, 'alquiler_id');
+    }    
 }

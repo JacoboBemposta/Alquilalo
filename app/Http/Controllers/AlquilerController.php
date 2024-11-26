@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Alquiler;
 use App\Models\Producto;
+use App\Models\EntregaRecogida;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+
 
 class AlquilerController extends Controller
 {
@@ -189,5 +191,46 @@ class AlquilerController extends Controller
         //
     }
 
+    public function gestionarAlquileres(){
+        // Solo permitir acceso si el usuario es administrador
+        if (auth()->user()->email !== 'admin@gmail.com') {
+            abort(403, 'No tienes permisos para acceder a esta sección.');
+        }
+    
+        // Obtener todos los alquileres con relaciones de productos y usuarios
+        $alquileres = Alquiler::with(['producto', 'arrendatario', 'arrendador'])->get();
+    
+        return view('admin.gestionar_alquileres', compact('alquileres'));
+    }
 
+
+    public function cambiarEstado(Request $request, $id)
+    {
+        // Encuentra el alquiler por su ID
+        $alquiler = Alquiler::findOrFail($id);
+    
+        // Obtén el último registro de entregas_recogidas
+        $ultimoEstado = $alquiler->entregasRecogidas()->latest()->first();
+    
+        // Si no existe, asignamos un estado por defecto
+        if (!$ultimoEstado) {
+            $ultimoEstado = new EntregaRecogida();
+            $ultimoEstado->alquiler_id = $alquiler->id;
+            $ultimoEstado->estado =  $request->input('estado'); // Estado inicial si no hay registros previos
+            $ultimoEstado->fecha_evento = now();
+            $ultimoEstado->save();
+        }
+    
+        // Crea un nuevo registro de entrega_recogida con el estado seleccionado
+        $entregaRecogida = new EntregaRecogida();
+        $entregaRecogida->alquiler_id = $alquiler->id;  // Relación con el alquiler
+        $entregaRecogida->estado = $request->input('estado');  // Estado elegido por el usuario
+        $entregaRecogida->fecha_evento = now();  // Fecha y hora actual
+        $entregaRecogida->save();  // Guardamos el nuevo registro
+    
+        // Redirige con un mensaje de éxito
+        return redirect()->route('admin.alquileres', ['id' => $id])->with('success', 'Estado actualizado correctamente.');
+    }
+    
+    
 }

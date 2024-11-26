@@ -56,6 +56,12 @@
               <li class="nav-item">
                   <a class="nav-link" href="{{ route('ofertas.index') }}">Solicitar Producto</a>
               </li>
+              <!-- Botón visible solo para administradores -->
+              @if(auth()->user()->is_admin)
+                <li class="nav-item">
+                      <a class="nav-link" href="{{ route('admin.alquileres') }}">Panel Admin</a>
+                  </li>
+              @endif
               @endauth
             </ul>
           </div>

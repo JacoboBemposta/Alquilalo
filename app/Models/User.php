@@ -60,4 +60,9 @@ class User extends Authenticatable{
             'password' => 'hashed',
         ];
     }
+
+    public function isAdmin()
+    {
+        return $this->is_admin;  // Asegúrate de que 'is_admin' esté en la base de datos
+    }
 }

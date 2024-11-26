@@ -9,6 +9,7 @@ use App\Models\ImagenProducto;
 use App\Models\Alquiler;
 use App\Models\Valoracion;
 use App\Models\Incidencia;
+use App\Models\EntregaRecogida;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -484,4 +485,14 @@ public function store(Request $request){
         return view('productos.buscar', compact('productos'));
     }
     
+
+    public function verEstadosProducto($productoId){
+        $producto = Producto::findOrFail($productoId);
+        $alquileres = $producto->alquileres()->with('entregasRecogidas')->get();
+    
+        return view('productos.ver_estados', [
+            'producto' => $producto,
+            'alquileres' => $alquileres,
+        ]);
+    }    
 }

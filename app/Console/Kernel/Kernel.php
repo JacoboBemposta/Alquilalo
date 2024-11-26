@@ -22,4 +22,5 @@ class Kernel extends ConsoleKernel
             Commands\UpdateNovedadesCommand::class,
         ]);
     }
+
 }
