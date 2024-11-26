@@ -39,7 +39,7 @@
         /* Espacio mínimo para evitar colapsos */
     }
 </style>
-<div class="container profile-container">
+<div class="container profile-container mt-5 mb-5">
     <div class="profile-header mx-auto p-4">
         <h2>{{ Auth::user()->name }}</h2>
         <p>Email: {{ Auth::user()->email }}</p>
@@ -113,7 +113,7 @@
 
 
     <!-- Sección de Arrendatario -->
-    <div class="rentals-section section mt-5">
+    <div class="rentals-section section mt-5 mb-5">
         <h3>
             Alquileres Realizados como Arrendatario
             <button class="btn toggle-btn" data-target="#arrendatarioSection">
@@ -239,7 +239,7 @@
     <br>
 
     <!-- Sección de Arrendador -->
-    <div class="rentals-section section">
+    <div class="rentals-section section mt-5 mb-4">
         <h3>
             Alquileres Realizados como Arrendador
             <button class="btn toggle-btn" data-target="#arrendadorSection">
