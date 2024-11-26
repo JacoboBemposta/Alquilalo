@@ -12,6 +12,10 @@
         width: 90%; /* Ancho ajustable de la tabla */
         max-width: 1400px; /* Máximo ancho para pantallas grandes */
     }
+    .btn img {
+        width: 20px;
+        height: 20px;
+    }
 </style>
 
 @if(auth()->user()->is_admin == true)
@@ -29,7 +33,7 @@
                 <th>Inicio</th>
                 <th>Fin</th>
                 <th>Estado</th>
-                <th>Acciones</th>
+                <th>Detalles</th>
             </tr>
         </thead>
         <tbody>
@@ -47,7 +51,9 @@
                         {{ $ultimoRegistro ? $ultimoRegistro->estado : 'Sin Estado' }}
                     </td>
                     <td>
-                        <a href="{{ route('admin.detalles_alquiler', $alquiler->id) }}" class="btn btn-secondary">Ver Detalles</a>
+                    <a href="{{ route('admin.detalles_alquiler', $alquiler->id) }}" class="btn btn-sm toggle-alquileres">
+                            <img src="{{ asset('imagenes/vermas.jpg') }}" alt="Ver Alquileres" title="Ver alquileres">
+                        </a>
                     </td>
                 </tr>
             @endforeach
@@ -72,7 +78,7 @@
             language: {
                 url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json' // Idioma en español
             },
-            order: [[3, 'desc']] // Ordena inicialmente por la columna "Inicio" (índice 3) en orden descendente
+            order: [[3, 'asc']] // Ordena inicialmente por la columna "Inicio" (índice 3) en orden descendente
         });
     });
 </script>
