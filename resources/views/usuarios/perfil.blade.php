@@ -1,44 +1,13 @@
 @extends('layouts.menu')
 
 @section('contenido')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="css/perfil.css">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<style>
-    table {
-        table-layout: fixed;
-        width: 100%;
-        border-collapse: collapse;
-    }
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    td,
-    th {
-        text-align: center;
-        vertical-align: middle;
-        padding: 10px;
-    }
 
-    .col-producto {
-        width: 20%;
-    }
 
-    .col-fecha {
-        width: 15%;
-    }
-
-    .col-precio {
-        width: 10%;
-        text-align: right;
-    }
-
-    .col-acciones {
-        min-width: 150px;
-        /* Espacio mínimo para evitar colapsos */
-    }
-</style>
 <div class="container profile-container mt-5 mb-5">
     <div class="profile-header mx-auto p-4">
         <h2>{{ Auth::user()->name }}</h2>
@@ -348,20 +317,18 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
 <script>
     $(document).ready(function() {
         // Inicializa las tablas de DataTables
         $('#arrendatarioTable').DataTable({
             "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/Spanish.json"
+                "url": '/proxy/spanish'
             }
         });
         $('#arrendadorTable').DataTable({
             "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/Spanish.json"
+                "url": '/proxy/spanish'
             }
         });
 

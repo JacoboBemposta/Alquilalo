@@ -103,3 +103,6 @@ Route::get('/alquileres/gestionar', [AlquilerController::class, 'gestionarAlquil
 Route::put('/alquileres/cambiar_estado/{id}', [AlquilerController::class, 'cambiarEstado'])->name('admin.cambiar_estado');
 
 
+Route::get('/proxy/spanish', function () {
+    return file_get_contents('https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json');
+});

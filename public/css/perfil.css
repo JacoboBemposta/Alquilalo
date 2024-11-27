@@ -47,3 +47,33 @@
 .change-password button:hover {
     background-color: #45a049;
 }
+table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td,
+th {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+}
+
+.col-producto {
+    width: 20%;
+}
+
+.col-fecha {
+    width: 15%;
+}
+
+.col-precio {
+    width: 10%;
+    text-align: right;
+}
+
+.col-acciones {
+    min-width: 150px;
+    /* Espacio mínimo para evitar colapsos */
+}

@@ -4,9 +4,6 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 
-<style>
-
-</style>
 
 <div class="col-12 row justify-content-center" style="margin-top: 10vh">
     @if($productosPorFecha->isEmpty())

@@ -76,7 +76,7 @@
             ordering: true, // Permite ordenar las columnas
             paging: false, // Desactiva la paginación
             language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json' // Idioma en español
+                url: '/proxy/spanish'
             },
             order: [[3, 'asc']] // Ordena inicialmente por la columna "Inicio" (índice 3) en orden descendente
         });

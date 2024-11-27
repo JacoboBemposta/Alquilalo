@@ -104,7 +104,7 @@
             ordering: true,
             paging: false,
             language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
+                url: '/proxy/spanish'
             },
             order: [
                 [3, 'desc']
