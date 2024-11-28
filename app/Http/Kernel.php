@@ -22,6 +22,8 @@ class Kernel extends HttpKernel
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
         \Illuminate\Auth\Middleware\Authenticate::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        \App\Http\Middleware\CorsMiddleware::class,
+
     ];
 
     /**
