@@ -19,8 +19,6 @@
   <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-  {{-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">  --}}
-  <!-- <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script> -->
   @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 

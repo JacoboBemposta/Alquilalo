@@ -1,9 +1,6 @@
 /** VALORACIONES **/
 
-.rating {
-    display: inline-block; /* Centra el contenedor en el padre */
-    text-align: center; /* Centra el contenido de las estrellas dentro del contenedor */
-}
+
 .rating input[type="radio"] {
     display: none; /* Ocultar los inputs */
 }
@@ -48,16 +45,6 @@
 }
 
 
-.truncate-text {
-    display: -webkit-box; /* Necesario para la truncación en WebKit */
-    -webkit-line-clamp: 2; /* Número máximo de líneas visibles */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.2; /* Ajusta el espacio entre líneas si es necesario */
-    max-height: calc(1.2em * 2); /* Limita la altura basada en el número de líneas */
-    padding: 0 5px; /* Espacio lateral opcional */
-}
 /** LOADER **/
 /* From Uiverse.io by david-mohseni */
 .loader {
@@ -180,7 +167,7 @@ header {
     /** FOMRULARIOS **/
 
 .form-container {
-    background: linear-gradient(180deg, grey 80%, rgb(140, 179, 140) 100%);
+    background: linear-gradient(180deg, rgb(101, 195, 184) 40%, rgb(140, 179, 140) 100%);
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 25px;
@@ -500,4 +487,60 @@ header {
 .btn-section {
     margin-top: auto;
     text-align: center;
+}
+
+/* Asegura que las imágenes no se deformen */
+.img-fluid {
+    object-fit: contain; /* Escala la imagen para que todo sea visible */
+    width: 100%;
+    height: 100%;
+    background-color: #f9f9f9; /* Color de fondo para rellenar los espacios vacíos (opcional) */
+}
+
+/* Define tamaño fijo para los contenedores de cada producto */
+.producto-contenedor {
+    width: 200px; /* Ajusta según sea necesario */
+    height: 300px; /* Ajusta según sea necesario */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+    border: 1px solid #ccc; /* Opcional, para ver los bordes */
+    padding: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Opcional */
+    border-radius: 8px; /* Opcional */
+}
+
+/* Para el contenedor del texto */
+.truncate-text {
+    display: inline-block; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    width: 100%; 
+}
+
+
+/* Define tamaño fijo para el contenedor de las estrellas */
+.rating {
+    width: 100%;
+    height: 40px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    direction: rtl; /* Invierte el flujo visual de las estrellas */
+    unicode-bidi: bidi-override; /* Asegura que el contenido interno respete el cambio de dirección */
+}
+
+/* Contenedor de la imagen */
+.producto-imagen {
+    width: 100%;
+    height: 150px; /* Ajusta según sea necesario */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9; /* Opcional, para ver el área */
 }
