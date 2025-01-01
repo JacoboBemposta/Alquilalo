@@ -18,6 +18,7 @@ Aunque el proyecto no está completamente finalizado debido a limitaciones de ti
 - ✅ **Sistema de alquiler:** Gestión completa del proceso de alquiler.
 - ✅ **Sistema de reserva de fechas:** Asegura la disponibilidad de los productos.
 - ✅ **Sistema de apertura de incidencias:** Registro y gestión de problemas reportados por los usuarios.
+- ✅ **Sistema de valoración de productos:** Mejora la experiencia del usuario.
 - ✅ **Búsqueda avanzada:** Filtros dinámicos para encontrar productos rápidamente.
 - ✅ **Integración de pasarela de pago:** Procesamiento seguro de transacciones.
 - ✅ **Protección contra ataques por inyección de etiquetas JavaScript:** Mejora la seguridad de la plataforma.
