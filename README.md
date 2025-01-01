@@ -44,6 +44,6 @@ Aunque el proyecto está avanzado, aquí hay algunas mejoras planificadas para f
 
 ## 📬 Contacto
 Si tienes alguna pregunta o deseas saber más sobre el proyecto, ¡no dudes en contactarme!  
-**Email:** [tuemail@example.com]  
-**LinkedIn:** [tu-perfil-linkedin](https://linkedin.com)
+**Email:** [jacobo.bemposta@gmail.com]  
+**LinkedIn:** [Jaocobo Bemposta Castro]([https://linkedin.com](https://www.linkedin.com/in/jacobo-bemposta-castro-09b82542/))
 
